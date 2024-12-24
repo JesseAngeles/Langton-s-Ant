@@ -1,46 +1,58 @@
 #ifndef ANT_HPP
 #define ANT_HPP
 
+#include <iostream>
 #include <vector>
 
 #include "Direction.hpp"
 #include "Rule.hpp"
 
+struct Vector2i
+{
+    int x;
+    int y;
+    Vector2i() = default;
+    Vector2i(int x, int y) : x(x), y(y) {}
+};
+
 class Ant
 {
 private:
     // Attributes
-    int x_pos;
-    int y_pos;
+    Vector2i pos;
     Direction direction;
+
+    Vector2i space;
 
     // Rules
     std::vector<Rule> rules;
 
     // Functions
-    void updateDirection(const Rule &rule);
 
 public:
     // Constructor
-    Ant(int x_pos, int y_pos, Direction direction = Direction::UP);
+    Ant(Vector2i pos, Vector2i space, Direction direction, std::vector<Rule> rules);
 
     // Functions
-    void move(const int &state);
+    void rotate(const int &state);
+    Vector2i getNextMove() const;
 
     // Overloading
     bool operator<(const Ant &other) const;
 
     // Getters
-    int getXPos() const { return x_pos; }
-    int getYPos() const { return y_pos; }
+    Vector2i getPos() const { return pos; }
     Direction getDirection() const { return direction; }
     std::vector<Rule> getRules() const { return rules; }
 
     // Setters
-    void setXPos(int &x_pos) { this->x_pos = x_pos; }
-    void setYPos(int &y_pos) { this->y_pos = y_pos; }
+    void setPos(Vector2i &pos) { this->pos = pos; }
     void setDirection(Direction &direction) { this->direction = direction; }
     void setRules(std::vector<Rule> &rules) { this->rules = rules; }
+    void setSpace(Vector2i &space);
+
+    // Display
+    void display();
 };
 
 #endif // ANT_HPP

@@ -1,61 +1,101 @@
 #include "logic/Ant.hpp"
 
 // Constructor
-Ant::Ant(int x_pos, int y_pos, Direction direction)
-    : x_pos(x_pos), y_pos(y_pos), direction(direction)
+Ant::Ant(Vector2i pos, Vector2i space, Direction direction, std::vector<Rule> rules)
+    : pos(pos), space(space), direction(direction), rules(rules)
 {
 }
 
 // Private functions
-void Ant::updateDirection(const Rule &rule)
-{
-    if (rule == Rule::LEFT)
-        if (direction == Direction::LEFT)
-            direction = Direction::DOWN;
-        else if (direction == Direction::UP)
-            direction = Direction::LEFT;
-        else if (direction == Direction::RIGHT)
-            direction = Direction::UP;
-        else if (direction == Direction::DOWN)
-            direction = Direction::RIGHT;
-    else if (rule == Rule::RIGHT)
-        if (direction == Direction::LEFT)
-            direction = Direction::UP;
-        else if (direction == Direction::UP)
-            direction = Direction::RIGHT;
-        else if (direction == Direction::RIGHT)
-            direction = Direction::DOWN;
-        else if (direction == Direction::DOWN)
-            direction = Direction::LEFT;
-}
 
 // Public functions
-void Ant::move(const int &state)
+void Ant::rotate(const int &state)
 {
     Rule rule_to_apply = rules[state];
-    
-    updateDirection(rule_to_apply);
+
+    if (rule_to_apply == Rule::LEFT)
+    {
+        if (direction == Direction::LEFT)
+            direction = Direction::DOWN;
+        else if (direction == Direction::UP)
+            direction = Direction::LEFT;
+        else if (direction == Direction::RIGHT)
+            direction = Direction::UP;
+        else if (direction == Direction::DOWN)
+            direction = Direction::RIGHT;
+    }
+    else if (rule_to_apply == Rule::RIGHT)
+    {
+        if (direction == Direction::LEFT)
+            direction = Direction::UP;
+        else if (direction == Direction::UP)
+            direction = Direction::RIGHT;
+        else if (direction == Direction::RIGHT)
+            direction = Direction::DOWN;
+        else if (direction == Direction::DOWN)
+            direction = Direction::LEFT;
+    }
+}
+
+Vector2i Ant::getNextMove() const
+{
+    Vector2i pos = this->pos;
 
     if (direction == Direction::LEFT)
-        x_pos--;
+        pos.x--;
     else if (direction == Direction::UP)
-        y_pos++;
+        pos.y++;
     else if (direction == Direction::RIGHT)
-        x_pos++;
-    else if (direction == Direction::LEFT)
-        y_pos--;
+        pos.x++;
+    else if (direction == Direction::DOWN)
+        pos.y--;
+
+    pos.x = (pos.x + space.x) % space.x;
+    pos.y = (pos.y + space.y) % space.y;
+
+    return pos;
 }
 
 // Overloading
 bool Ant::operator<(const Ant &other) const
 {
-    if (x_pos < other.x_pos)
+    if (pos.x < other.pos.x)
         return true;
-    if (other.x_pos < x_pos)
+    if (other.pos.x < pos.x)
         return false;
 
-    if (y_pos < other.y_pos)
+    if (pos.y < other.pos.y)
         return true;
 
     return false;
+}
+
+// Setters
+void Ant::setSpace(Vector2i &space)
+{
+    this->space = space;
+    pos.x %= space.x;
+    pos.y %= space.y;
+}
+
+// Display
+void Ant::display()
+{
+    std::cout << "\n(" << pos.x << "," << pos.y << ") -> ";
+    if (direction == Direction::DOWN)
+        std::cout << "down";
+    else if (direction == Direction::LEFT)
+        std::cout << "left";
+    else if (direction == Direction::UP)
+        std::cout << "up";
+    else if (direction == Direction::RIGHT)
+        std::cout << "right";
+
+    std::cout << ": ";
+
+    for (const Rule &rule : rules)
+        if (rule == Rule::LEFT)
+            std::cout << "L";
+        else if (rule == Rule::RIGHT)
+            std::cout << "R";
 }

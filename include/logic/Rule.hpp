@@ -10,17 +10,15 @@ enum class Rule
     RIGHT
 };
 
-std::vector<Rule> stringToRules(std::string &rule)
+inline std::vector<Rule> stringToRules(std::string &rule)
 {
     std::vector<Rule> rules;
-    for (const char &c : rule)
-    {
+    for (const char c : rule)
         if (c == 'L')
             rules.push_back(Rule::LEFT);
         else if (c == 'R')
             rules.push_back(Rule::RIGHT);
-    }
-
+    
     return rules;
 }
 
