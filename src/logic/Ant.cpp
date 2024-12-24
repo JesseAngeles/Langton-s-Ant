@@ -1,8 +1,8 @@
 #include "logic/Ant.hpp"
 
 // Constructor
-Ant::Ant(Vector2i pos, Vector2i space, Direction direction, std::vector<Rule> rules)
-    : pos(pos), space(space), direction(direction), rules(rules)
+Ant::Ant(Vector2i pos, Vector2i space, Direction direction, std::vector<Rule> rules, int colony)
+    : pos(pos), space(space), direction(direction), rules(rules), colony(0)
 {
 }
 

@@ -27,11 +27,11 @@ int main()
 
     for (int i = 0; i < 10; i++)
     {
-        space.display();
         space.move();
     }
 
     space.display();
+    space.displayAnts();
 
     return 0;
 }

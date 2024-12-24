@@ -13,6 +13,19 @@ struct Vector2i
     int y;
     Vector2i() = default;
     Vector2i(int x, int y) : x(x), y(y) {}
+    bool operator==(const Vector2i &other) const { return x == other.x && y == other.y; }
+    bool operator<(const Vector2i &other) const
+    {
+        if (x < other.x)
+            return true;
+        if (other.x < x)
+            return false;
+
+        if (y < other.y)
+            return true;
+        
+        return false;
+    }
 };
 
 class Ant
@@ -24,6 +37,8 @@ private:
 
     Vector2i space;
 
+    int colony;
+
     // Rules
     std::vector<Rule> rules;
 
@@ -31,7 +46,7 @@ private:
 
 public:
     // Constructor
-    Ant(Vector2i pos, Vector2i space, Direction direction, std::vector<Rule> rules);
+    Ant(Vector2i pos, Vector2i space, Direction direction, std::vector<Rule> rules, int colony = 0);
 
     // Functions
     void rotate(const int &state);
