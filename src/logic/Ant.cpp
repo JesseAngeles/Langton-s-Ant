@@ -1,7 +1,7 @@
 #include "logic/Ant.hpp"
 
 // Constructor
-Ant::Ant(Vector2i pos, Vector2i space, Direction direction, std::vector<Rule> rules, int colony)
+Ant::Ant(Position2D pos, Position2D space, Direction direction, std::vector<Rule> rules, int colony)
     : pos(pos), space(space), direction(direction), rules(rules), colony(0)
 {
 }
@@ -37,9 +37,9 @@ void Ant::rotate(const int &state)
     }
 }
 
-Vector2i Ant::getNextMove() const
+Position2D Ant::getNextMove() const
 {
-    Vector2i pos = this->pos;
+    Position2D pos = this->pos;
 
     if (direction == Direction::LEFT)
         pos.x--;
@@ -71,7 +71,7 @@ bool Ant::operator<(const Ant &other) const
 }
 
 // Setters
-void Ant::setSpace(Vector2i &space)
+void Ant::setSpace(Position2D &space)
 {
     this->space = space;
     pos.x %= space.x;

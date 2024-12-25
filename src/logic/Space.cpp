@@ -16,16 +16,16 @@ void Space::move()
     // Rotar todas las hormigas
     for (const std::shared_ptr<Ant> &ant : ants)
     {
-        Vector2i pos = ant->getPos();
+        Position2D pos = ant->getPos();
         ant->rotate(space[pos.x][pos.y].state);
     }
 
     // Obtener todas las casillas que seran ocupadas
-    std::map<Vector2i, std::vector<std::shared_ptr<Ant>>> taken_cells;
+    std::map<Position2D, std::vector<std::shared_ptr<Ant>>> taken_cells;
 
     for (const std::shared_ptr<Ant> &ant : ants)
     {
-        Vector2i next_move = ant->getNextMove();
+        Position2D next_move = ant->getNextMove();
 
         auto it = taken_cells.find(next_move);
         if (it != taken_cells.end())
@@ -36,7 +36,7 @@ void Space::move()
 
     // Buscar aquellas casillas que puede ser tomada por dos o mas, y seleccionar una al azar
     std::vector<std::shared_ptr<Ant>> movable_ants;
-    for (std::pair<Vector2i, std::vector<std::shared_ptr<Ant>>> cell : taken_cells)
+    for (std::pair<Position2D, std::vector<std::shared_ptr<Ant>>> cell : taken_cells)
         if (cell.second.size() == 1)
             movable_ants.push_back(cell.second[0]);
         else
@@ -47,11 +47,11 @@ void Space::move()
         space[ant->getPos().x][ant->getPos().y].ant = std::nullopt;
 
     // Mover movable_ants
-    Vector2i pos;
+    Position2D pos;
     for (const std::shared_ptr<Ant> &ant : movable_ants)
     {
-        Vector2i pos = ant->getPos();
-        Vector2i new_pos = ant->getNextMove();
+        Position2D pos = ant->getPos();
+        Position2D new_pos = ant->getNextMove();
         ant->setPos(new_pos);
         space[pos.x][pos.y].state = (space[pos.x][pos.y].state + 1) % states;
         space[new_pos.x][new_pos.y].ant = ant;
@@ -60,7 +60,7 @@ void Space::move()
 
 bool Space::insertAnt(std::shared_ptr<Ant> &ant)
 {
-    Vector2i pos = ant->getPos();
+    Position2D pos = ant->getPos();
     if (!space[pos.x][pos.y].ant.has_value())
     {
         ants.insert(ant);
@@ -72,7 +72,7 @@ bool Space::insertAnt(std::shared_ptr<Ant> &ant)
     return false;
 }
 
-void Space::removeAnt(Vector2i pos)
+void Space::removeAnt(Position2D pos)
 {
     if (space[pos.x][pos.y].ant.has_value())
     {
@@ -83,12 +83,12 @@ void Space::removeAnt(Vector2i pos)
     }
 }
 
-int Space::insertColony(Vector2i center, float radius, int population, std::vector<Rule> rules, int colony)
+int Space::insertColony(Position2D center, float radius, int population, std::vector<Rule> rules, int colony)
 {
     // Create N ants
     int i = 0, j = 0;
     int total_count = std::sqrt(8) * std::pow(radius, 2);
-    Vector2i current_space(space.size(), space[0].size());
+    Position2D current_space(space.size(), space[0].size());
 
     while (i < population || j++ < total_count)
     {
@@ -113,7 +113,7 @@ int Space::insertColony(Vector2i center, float radius, int population, std::vect
             break;
         }
 
-        std::shared_ptr<Ant> new_ant = std::make_shared<Ant>(Vector2i(x_pos, y_pos), current_space, new_direction, rules, colony);
+        std::shared_ptr<Ant> new_ant = std::make_shared<Ant>(Position2D(x_pos, y_pos), current_space, new_direction, rules, colony);
 
         if (insertAnt(new_ant))
             i++;
@@ -126,7 +126,7 @@ int Space::insertColony(Vector2i center, float radius, int population, std::vect
 void Space::setSpace(std::vector<std::vector<Cell>> &space)
 {
     this->space = space;
-    Vector2i new_space(space.size(), space[0].size());
+    Position2D new_space(space.size(), space[0].size());
     for (const std::shared_ptr<Ant> &ant : ants)
         ant->setSpace(new_space);
 }
