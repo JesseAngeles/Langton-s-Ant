@@ -3,6 +3,8 @@
 #include "logic/Space.hpp"
 #include "logic/Ant.hpp"
 
+#include "gui/MainWindow.hpp"
+
 using namespace std;
 
 int main()
@@ -18,7 +20,7 @@ int main()
     rule.resize(states);
 
     // Crear hormiga
-    Ant ant(Vector2i(2, 2), Vector2i(width, height), Direction::UP, rule);
+    Ant ant(Position2D(2, 2), Position2D(width, height), Direction::UP, rule);
     set<std::shared_ptr<Ant>> ants;
     ants.insert(std::make_shared<Ant>(ant));
 
@@ -32,6 +34,11 @@ int main()
 
     space.display();
     space.displayAnts();
+
+
+    // Interfaz grafica
+    MainWindow gui(800, 800, "Hola mundo", Color(100, 255, 130));
+    gui.mainLoop();
 
     return 0;
 }
