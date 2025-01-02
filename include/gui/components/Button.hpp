@@ -24,6 +24,7 @@ public:
     // Setters
     void setOnClick(std::function<void()> callback) { onClick = callback; }
     void setText(const std::string &text_content);
+    void setText(sf::Text text) { this->text = text; }
 };
 
 #endif // BUTTON_HPP

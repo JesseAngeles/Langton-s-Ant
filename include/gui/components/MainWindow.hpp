@@ -13,7 +13,7 @@ using namespace sf;
 
 class MainWindow
 {
-private:
+protected:
     RenderWindow window;
     Color background_color;
 

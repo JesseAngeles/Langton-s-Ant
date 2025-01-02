@@ -28,6 +28,7 @@ public:
     // Setters
     void setOnEnter(std::function<void(const std::string &)> callback) { onEnter = callback; }
     void setString(const std::string &input_string);
+    void setText(const sf::Text &text) { this->text = text; }
 };
 
 #endif // TEXT_BOX_HPP

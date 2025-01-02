@@ -1,4 +1,4 @@
-#include "gui/MainWindow.hpp"
+#include "gui/components/MainWindow.hpp"
 
 // Constructor
 MainWindow::MainWindow(int width, int height, const std::string &title, const Color &background_color)
