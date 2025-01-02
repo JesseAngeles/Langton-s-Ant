@@ -2,49 +2,35 @@
 #define MAIN_WINDOW_HPP
 
 #include <string>
+#include <vector>
+#include <memory>
 
 #include <SFML/Graphics.hpp>
 
-#include "gui/BoardFrame.hpp"
-
-#define FONT_ROUTE "./resources/fonts/Roboto-Medium.ttf"
+#include "gui/components/Frame.hpp"
 
 using namespace sf;
 
 class MainWindow
 {
 private:
-    // MainWindow attributes
-    int width;
-    int height;
-    Color backgroundColor;
-    std::string tittle;
-    Font font;
-    std::string font_route = FONT_ROUTE;
-    
+    RenderWindow window;
+    Color background_color;
+
     // Frames
-    BoardFrame board_frame;
+    std::vector<std::shared_ptr<Frame>> frames;
 
-    // Lines
-
-    // Text
-
-    // Buttons
-
-    // Functions
+    void handleEvent();
+    void render();
 
 public:
     // Constructor
-    MainWindow(int width, int height, std::string tittle, Color backgroundColor);
+    MainWindow(int width, int height, const std::string &title, const Color &background_color = Color::Black);
 
-    RenderWindow window;
+    void addFrame(Frame frame) { frames.push_back(std::make_shared<Frame>(frame)); }
 
-    // Functions
-    void mainLoop();
-
-    // Drawers
+    // Drawer
+    void run();
 };
-
-
 
 #endif // MAIN_WINDOW_HPP

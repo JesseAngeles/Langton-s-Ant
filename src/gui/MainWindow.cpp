@@ -1,45 +1,42 @@
 #include "gui/MainWindow.hpp"
 
 // Constructor
-MainWindow::MainWindow(int width, int height, std::string tittle, Color backgroundColor)
-    : width(width), height(height), tittle(tittle), backgroundColor(backgroundColor),
-      window(VideoMode(width, height), tittle, Style::Close),
-      board_frame(200, 200, Vector2f(30, 30), Color(100, 100, 255))
+MainWindow::MainWindow(int width, int height, const std::string &title, const Color &background_color)
+    : window(VideoMode(width, height), title), background_color(background_color) {}
+
+// Private functions
+void MainWindow::handleEvent()
 {
+    Event event;
+    while (window.pollEvent(event))
+    {
+        if(event.type == Event::Closed)
+            window.close();
+
+        // Frame events
+        for (std::shared_ptr<Frame> &frame : frames)
+            frame->handleEvent(event);
+    }
+    
 }
 
-void MainWindow::mainLoop()
+void MainWindow::render()
 {
-    Clock clock;
+    window.clear(background_color);
 
+    // Render frames
+    for (const std::shared_ptr<Frame> &frame : frames)
+        window.draw(*frame);
+
+    window.display();
+}
+
+// Public functions
+void MainWindow::run()
+{
     while (window.isOpen())
     {
-        Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == Event::Closed)
-                window.close();
-
-            // Manejar el clic del botón
-            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
-            {
-                sf::Vector2i mouse_pos(event.mouseButton.x, event.mouseButton.y);
-
-                // Click en cuadricula
-            }
-
-            window.clear(backgroundColor);
-
-            // Dibujar elementos estaticos
-
-            // Frames
-            board_frame.draw(window);
-
-            // Text
-
-            // Buttons
-
-            window.display();
-        }
+        handleEvent();
+        render();
     }
 }
