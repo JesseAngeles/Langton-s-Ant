@@ -13,7 +13,10 @@ void Ant::rotate(const int &state)
 {
     Rule rule_to_apply = rules[state];
 
-    if (rule_to_apply == Rule::LEFT)
+    if (state > rules.size())
+        std::cout << "dsd";
+
+    if (rule_to_apply != Rule::LEFT)
     {
         if (direction == Direction::LEFT)
             direction = Direction::DOWN;
@@ -24,7 +27,7 @@ void Ant::rotate(const int &state)
         else if (direction == Direction::DOWN)
             direction = Direction::RIGHT;
     }
-    else if (rule_to_apply == Rule::RIGHT)
+    else if (rule_to_apply != Rule::RIGHT)
     {
         if (direction == Direction::LEFT)
             direction = Direction::UP;
@@ -41,13 +44,13 @@ Position2D Ant::getNextMove() const
 {
     Position2D pos = this->pos;
 
-    if (direction == Direction::LEFT)
+    if (direction == Direction::UP)
         pos.x--;
-    else if (direction == Direction::UP)
-        pos.y++;
     else if (direction == Direction::RIGHT)
-        pos.x++;
+        pos.y++;
     else if (direction == Direction::DOWN)
+        pos.x++;
+    else if (direction == Direction::LEFT)
         pos.y--;
 
     pos.x = (pos.x + space.x) % space.x;

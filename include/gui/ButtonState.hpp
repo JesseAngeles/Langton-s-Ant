@@ -18,7 +18,7 @@ private:
     
 public:
     ButtonState(GUI *gui, Text text) // Recibe un puntero a GUI
-        : Button(Vector2f(10, 190), Vector2f(200, 50), Color(255, 255, 100), text),
+        : Button(Vector2f(10, 250), Vector2f(200, 50), Color(255, 255, 100), text),
           gui(gui) // Inicializa el puntero
     {
         this->text.setString("Space");

@@ -17,7 +17,7 @@ private:
 
 public:
     ButtonColony(GUI *gui, Text text)
-        : Button(Vector2f(10, 310), Vector2f(200, 50), Color(255, 255, 100), text),
+        : Button(Vector2f(10, 370), Vector2f(200, 50), Color(255, 255, 100), text),
           gui(gui)
     {
         this->text.setString("Add ant");

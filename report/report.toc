@@ -7,6 +7,6 @@
 \contentsline {section}{\numberline {3}Metodología}{5}{}%
 \contentsline {subsection}{\numberline {3.1}Diseño de software}{5}{}%
 \contentsline {subsection}{\numberline {3.2}Comportamiento de una sola hormiga de Langton}{5}{}%
-\contentsline {subsection}{\numberline {3.3}Interacción de multiples hormigas en el mismo espacio}{5}{}%
-\contentsline {subsection}{\numberline {3.4}interacción entre multiples hormigueros}{5}{}%
-\contentsline {section}{Referencias}{6}{}%
+\contentsline {subsection}{\numberline {3.3}Interacción de multiples hormigas en el mismo espacio}{6}{}%
+\contentsline {subsection}{\numberline {3.4}interacción entre multiples hormigueros}{6}{}%
+\contentsline {section}{Referencias}{7}{}%

@@ -78,7 +78,6 @@ void Graphic::rescale(const sf::Vector2f &min_point, const sf::Vector2f &max_poi
     calculateCenter();
 
     axes.clear();
-    drawAxes();
 
     for (const std::shared_ptr<GraphicFunction> &function : functions)
         function->rescale(scale, origin);

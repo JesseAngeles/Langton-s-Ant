@@ -17,7 +17,7 @@ private:
 
 public:
     TextBoxRule(GUI *gui, Text text)
-        : TextBox(Vector2f(10, 130), Vector2f(200, 50), Color(Color::White), text, "", 20),
+        : TextBox(Vector2f(10, 190), Vector2f(200, 50), Color(Color::White), text, "", 20),
           gui(gui)
     {
         this->text.setCharacterSize(10);

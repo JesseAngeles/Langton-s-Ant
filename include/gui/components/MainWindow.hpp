@@ -21,7 +21,7 @@ protected:
     std::vector<std::shared_ptr<Frame>> frames;
 
     virtual void handleEvent();
-    void render();
+    virtual void render();
 
 public:
     // Constructor

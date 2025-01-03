@@ -18,7 +18,7 @@ private:
 
 public:
     ButtonReset(GUI *gui, Text text)
-        : Button(Vector2f(10, 70), Vector2f(200, 50), Color(255, 255, 100), text),
+        : Button(Vector2f(10, 130), Vector2f(200, 50), Color(255, 255, 100), text),
           gui(gui)
     {
         this->text.setString("Add ant");

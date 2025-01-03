@@ -22,13 +22,14 @@ g++ -c -std=c++17 -I./include src/gui/components/Grid.cpp -o build/Grid.o
 
 g++ -c -std=c++17 -I./include src/gui/GUI.cpp -o build/GUI.o
 g++ -c -std=c++17 -I./include src/gui/ButtonFunctions.cpp -o build/ButtonFunctions.o
+g++ -c -std=c++17 -I./include src/gui/MainGraphic.cpp -o build/MainGraphic.o
 
 # Enlazar los objetos y generar el ejecutable
 g++ build/main.o \
     build/Randomizer.o \
     build/Ant.o build/Space.o \
     build/MainWindow.o build/Frame.o build/Button.o build/TextBox.o build/Graphic.o build/GraphicFunction.o build/Grid.o \
-    build/GUI.o src/gui/ButtonFunctions.cpp \
+    build/GUI.o src/gui/ButtonFunctions.cpp build/MainGraphic.o\
     -o build/main.exe \
     -Iinclude -lsfml-graphics -lsfml-window -lsfml-system
 

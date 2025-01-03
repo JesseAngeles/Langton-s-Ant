@@ -7,6 +7,7 @@
 \usepackage{amsmath}                % Para el manejo de matemáticas
 \usepackage{url}
 \usepackage{enumitem}
+\usepackage{float}
 
 \title{La hormiga de Langton y la interacción entre diferentes hormigueros}
 \author{Erick Jesse Angeles López}
@@ -182,9 +183,27 @@
 	
 	\subsection{Diseño de software}
 	
-	Se diseña un programa en c++ implementado el proyecto \textit{Graphic Mode} que permite diseñar interfaces graficas usando la la libreria SFML.
+	Se diseña un programa en c++ implementado el proyecto \textit{Graphic Mode} que permite diseñar interfaces graficas usando la la librería SFML, este proyecto incorpora múltiples elementos que permiten la creación y manipulación de frames, botones, campos de texto, cuadriculas y graficas, elementos necesarios para esta practica.
 	
 	\subsection{Comportamiento de una sola hormiga de Langton}
+	
+	Tradicionalmente la hormiga de Langton se define por la regla RL, donde si el estado de la casilla es 0 gira a la derecha y si es uno gira a la izquierda. Esta tiene tiene dos comportamientos, el primero es caotico y aleatorio, el segundo es un ciclo de construcción de lo que se le llama carretera, un ciclo que que permite a la hormiga expandirse de forma infinita en una dirección. En la figura \ref{img:rl1} se muestra el resultado de una única hormiga después de dar 10000 pasos. Por otro lado, en la imagen \ref{img:rl2} se observa la construcción de la carretera casi inmediatamente después, de igual forma la grafica crece de manera constante a partir de ese punto.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\textwidth]{img/rl1.png}
+		\caption{Primeros 10000 pasos de una hormiga RL}
+		\label{img:rl1}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\textwidth]{img/rl2.png}
+		\caption{Construcción de carretera de una hormiga RL}
+		\label{img:rl2}
+	\end{figure}
+	
+	Como se menciono en la definición de l hormiga de Langton, las hormigas pueden adquirir multiples reglas y representarlas en el espacio.
 	
 	\subsection{Interacción de multiples hormigas en el mismo espacio}
 	
