@@ -11,9 +11,12 @@ Ant::Ant(Position2D pos, Position2D space, Direction direction, std::vector<Rule
 // Public functions
 void Ant::rotate(const int &state)
 {
+    if (state >= rules.size())
+        return;
+
     Rule rule_to_apply = rules[state];
 
-    if (rule_to_apply == Rule::LEFT)
+    if (rule_to_apply != Rule::LEFT)
     {
         if (direction == Direction::LEFT)
             direction = Direction::DOWN;
@@ -24,7 +27,7 @@ void Ant::rotate(const int &state)
         else if (direction == Direction::DOWN)
             direction = Direction::RIGHT;
     }
-    else if (rule_to_apply == Rule::RIGHT)
+    else if (rule_to_apply != Rule::RIGHT)
     {
         if (direction == Direction::LEFT)
             direction = Direction::UP;

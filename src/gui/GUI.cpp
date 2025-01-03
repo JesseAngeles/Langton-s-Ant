@@ -99,7 +99,7 @@ void GUI::run()
         if (is_running)
         {
             elapsed_time += delta_time;
-            if (elapsed_time >= 0.0f)
+            if (elapsed_time >= 0.0f && generation_count <= 10000)
             {
                 move();
                 elapsed_time = 0.0f; // Reinicia el tiempo acumulado

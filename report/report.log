@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.11.18)  3 JAN 2025 13:36
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.11.22)  3 JAN 2025 17:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -301,74 +301,214 @@ LaTeX Info: Redefining \% on input line 137.
 LaTeX Info: Redefining \. on input line 175.
 LaTeX Info: Redefining \% on input line 175.
  [4]
-LaTeX Info: Redefining \. on input line 211.
-LaTeX Info: Redefining \% on input line 211.
+LaTeX Info: Redefining \. on input line 182.
+LaTeX Info: Redefining \% on input line 182.
  [5]
-<img/rl1.png, id=38, 1927.2pt x 1084.05pt>
+<img/rl1.png, id=37, 1927.2pt x 1084.05pt>
 File: img/rl1.png Graphic file (type png)
 <use img/rl1.png>
-Package pdftex.def Info: img/rl1.png  used on input line 216.
+Package pdftex.def Info: img/rl1.png  used on input line 217.
 (pdftex.def)             Requested size: 398.33858pt x 224.05122pt.
-<img/rl2.png, id=40, 1927.2pt x 1051.93pt>
+LaTeX Info: Redefining \. on input line 221.
+LaTeX Info: Redefining \% on input line 221.
+ [6
+
+]
+<img/rl2.png, id=43, 1927.2pt x 1051.93pt>
 File: img/rl2.png Graphic file (type png)
 <use img/rl2.png>
-Package pdftex.def Info: img/rl2.png  used on input line 223.
+Package pdftex.def Info: img/rl2.png  used on input line 224.
 (pdftex.def)             Requested size: 398.33858pt x 217.41267pt.
+<img/llr1.png, id=44, 1148.29pt x 639.38875pt>
+File: img/llr1.png Graphic file (type png)
+<use img/llr1.png>
+Package pdftex.def Info: img/llr1.png  used on input line 236.
+(pdftex.def)             Requested size: 179.25113pt x 99.80667pt.
+<img/llr2.png, id=45, 1639.12375pt x 999.735pt>
+File: img/llr2.png Graphic file (type png)
+<use img/llr2.png>
+Package pdftex.def Info: img/llr2.png  used on input line 241.
+(pdftex.def)             Requested size: 179.25113pt x 109.31523pt.
+<img/rllr1.png, id=46, 892.33376pt x 638.385pt>
+File: img/rllr1.png Graphic file (type png)
+<use img/rllr1.png>
+Package pdftex.def Info: img/rllr1.png  used on input line 254.
+(pdftex.def)             Requested size: 179.25113pt x 128.22997pt.
+<img/rllr2.png, id=47, 1021.8175pt x 636.3775pt>
+File: img/rllr2.png Graphic file (type png)
+<use img/rllr2.png>
+Package pdftex.def Info: img/rllr2.png  used on input line 259.
+(pdftex.def)             Requested size: 179.25113pt x 111.6299pt.
+<img/rrrlll1.png, id=48, 1258.7025pt x 642.4pt>
+File: img/rrrlll1.png Graphic file (type png)
+<use img/rrrlll1.png>
+Package pdftex.def Info: img/rrrlll1.png  used on input line 272.
+(pdftex.def)             Requested size: 215.1008pt x 109.77509pt.
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Overfull \hbox (35.84967pt too wide) in paragraph at lines 272--273
+ [][] 
+ []
 
-LaTeX Info: Redefining \. on input line 227.
-LaTeX Info: Redefining \% on input line 227.
- [6 <./img/rl1.png>]
-File: img/rl2.png Graphic file (type png)
-<use img/rl2.png>
-Package pdftex.def Info: img/rl2.png  used on input line 242.
-(pdftex.def)             Requested size: 398.33858pt x 217.41267pt.
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-LaTeX Info: Redefining \. on input line 246.
-LaTeX Info: Redefining \% on input line 246.
- [7 <./img/rl2.png>]
-LaTeX Info: Redefining \. on input line 250.
-LaTeX Info: Redefining \% on input line 250.
- [8]
-LaTeX Info: Redefining \. on input line 257.
-LaTeX Info: Redefining \% on input line 257.
+LaTeX Info: Redefining \. on input line 285.
+LaTeX Info: Redefining \% on input line 285.
+[7 <./img/rl1.png> <./img/rl2.png>]
+LaTeX Info: Redefining \. on input line 285.
+LaTeX Info: Redefining \% on input line 285.
+ [8 <./img/llr1.png> <./img/llr2.png> <./img/rllr1.png> <./img/rllr2.png> <./im
+g/rrrlll1.png>]
+<img/rl_3d.png, id=62, 1258.7025pt x 642.4pt>
+File: img/rl_3d.png Graphic file (type png)
+<use img/rl_3d.png>
+Package pdftex.def Info: img/rl_3d.png  used on input line 305.
+(pdftex.def)             Requested size: 398.33858pt x 203.29808pt.
+LaTeX Info: Redefining \. on input line 313.
+LaTeX Info: Redefining \% on input line 313.
  [9
 
-] (./report.aux
+ <./img/rl_3d.png>]
+<img/mul1.png, id=67, 1659.19875pt x 820.06375pt>
+File: img/mul1.png Graphic file (type png)
+<use img/mul1.png>
+Package pdftex.def Info: img/mul1.png  used on input line 316.
+(pdftex.def)             Requested size: 398.33858pt x 196.86937pt.
+<img/2rl.png, id=68, 1579.9025pt x 684.5575pt>
+File: img/2rl.png Graphic file (type png)
+<use img/2rl.png>
+Package pdftex.def Info: img/2rl.png  used on input line 326.
+(pdftex.def)             Requested size: 398.33858pt x 172.59087pt.
+LaTeX Info: Redefining \. on input line 333.
+LaTeX Info: Redefining \% on input line 333.
+
+[10 <./img/mul1.png> <./img/2rl.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 336--337
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 336--337
+
+ []
+
+<img/2rl_1.png, id=74, 1423.3175pt x 657.45625pt>
+File: img/2rl_1.png Graphic file (type png)
+<use img/2rl_1.png>
+Package pdftex.def Info: img/2rl_1.png  used on input line 342.
+(pdftex.def)             Requested size: 250.95049pt x 115.90929pt.
+
+Overfull \hbox (71.69936pt too wide) in paragraph at lines 342--343
+ [][] 
+ []
+
+<img/2_rl_1.png, id=75, 1031.855pt x 642.4pt>
+File: img/2_rl_1.png Graphic file (type png)
+<use img/2_rl_1.png>
+Package pdftex.def Info: img/2_rl_1.png  used on input line 359.
+(pdftex.def)             Requested size: 179.25113pt x 111.58849pt.
+<img/2_rl_2.png, id=76, 1031.855pt x 642.4pt>
+File: img/2_rl_2.png Graphic file (type png)
+<use img/2_rl_2.png>
+Package pdftex.def Info: img/2_rl_2.png  used on input line 364.
+(pdftex.def)             Requested size: 179.25113pt x 111.58849pt.
+<img/4_rl_1.png, id=77, 1031.855pt x 642.4pt>
+File: img/4_rl_1.png Graphic file (type png)
+<use img/4_rl_1.png>
+Package pdftex.def Info: img/4_rl_1.png  used on input line 377.
+(pdftex.def)             Requested size: 250.95049pt x 156.22781pt.
+
+Overfull \hbox (71.69936pt too wide) in paragraph at lines 377--378
+ [][] 
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+LaTeX Info: Redefining \. on input line 390.
+LaTeX Info: Redefining \% on input line 390.
+[11 <./img/2rl_1.png>]
+LaTeX Info: Redefining \. on input line 390.
+LaTeX Info: Redefining \% on input line 390.
+ [12 <./img/2_rl_1.png> <./img/2_rl_2.png> <./img/4_rl_1.png>]
+<img/mul_1.png, id=89, 1659.19875pt x 820.06375pt>
+File: img/mul_1.png Graphic file (type png)
+<use img/mul_1.png>
+Package pdftex.def Info: img/mul_1.png  used on input line 399.
+(pdftex.def)             Requested size: 310.70796pt x 153.56136pt.
+
+Overfull \hbox (71.7024pt too wide) in paragraph at lines 399--400
+ [][] 
+ []
+
+<img/mul_2.png, id=90, 1594.95876pt x 652.4375pt>
+File: img/mul_2.png Graphic file (type png)
+<use img/mul_2.png>
+Package pdftex.def Info: img/mul_2.png  used on input line 406.
+(pdftex.def)             Requested size: 310.70796pt x 127.0904pt.
+
+Overfull \hbox (71.7024pt too wide) in paragraph at lines 406--407
+ [][] 
+ []
+
+<img/mul_3.png, id=91, 1681.28125pt x 1010.77625pt>
+File: img/mul_3.png Graphic file (type png)
+<use img/mul_3.png>
+Package pdftex.def Info: img/mul_3.png  used on input line 413.
+(pdftex.def)             Requested size: 310.70796pt x 186.79018pt.
+
+Overfull \hbox (71.7024pt too wide) in paragraph at lines 413--414
+ [][] 
+ []
+
+LaTeX Info: Redefining \. on input line 421.
+LaTeX Info: Redefining \% on input line 421.
+[13
+
+ <./img/mul_1.png> <./img/mul_2.png> <./img/mul_3.png>]
+LaTeX Info: Redefining \. on input line 425.
+LaTeX Info: Redefining \% on input line 425.
+ [14
+
+]
+LaTeX Info: Redefining \. on input line 432.
+LaTeX Info: Redefining \% on input line 432.
+ [15
+
+]
+(./report.aux
 LaTeX Info: Redefining \. on input line 8.
 LaTeX Info: Redefining \% on input line 8.
 ) ) 
 Here is how much of TeX's memory you used:
- 4558 strings out of 476041
- 72088 string characters out of 5793173
+ 4671 strings out of 476041
+ 73966 string characters out of 5793173
  1860388 words of memory out of 6000000
- 24971 multiletter control sequences out of 15000+600000
- 520495 words of font info for 60 fonts, out of 8000000 for 9000
+ 25069 multiletter control sequences out of 15000+600000
+ 521335 words of font info for 63 fonts, out of 8000000 for 9000
  1137 hyphenation exceptions out of 8191
- 57i,8n,62p,557b,465s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 57i,9n,62p,557b,511s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></u
 sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/sha
 re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/t
 exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10
-.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><
-/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/sh
-are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/te
-xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/
-texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on report.pdf (9 pages, 619535 bytes).
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb><
+/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/s
+hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/te
+xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-
+dist/fonts/type1/public/cm-super/sfrm1200.pfb>
+Output written on report.pdf (15 pages, 960011 bytes).
 PDF statistics:
- 128 PDF objects out of 1000 (max. 8388607)
- 75 compressed objects within 1 object stream
+ 181 PDF objects out of 1000 (max. 8388607)
+ 91 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 96 words of extra memory for PDF output out of 10000 (max. 10000000)
 

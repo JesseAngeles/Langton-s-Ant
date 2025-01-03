@@ -179,6 +179,7 @@ El objetivo de esta práctica es estudiar los siguientes aspectos:
 
 Durante las pruebas, se analizarán y graficarán las densidades de los estados de las celdas y la expansión desde el punto inicial. Las simulaciones se llevaron a cabo utilizando un software desarrollado específicamente para esta práctica, detallado en la sección de metodología.
 
+\clearpage
 \section{Metodología}
 
 \subsection{Diseño de Software}
@@ -195,56 +196,230 @@ Estas herramientas permiten diseñar un entorno visual adecuado para simular, vi
 
 \subsection{Comportamiento de una sola Hormiga de Langton}
 
-Tradicionalmente, la hormiga de Langton se define por la regla \textbf{RL}, donde:  
+La hormiga de Langton, en su versión tradicional, opera bajo la regla \textbf{RL}, definida de la siguiente manera:  
 \begin{itemize}
 	\item Si el estado de la casilla es 0, la hormiga gira a la derecha.  
 	\item Si el estado de la casilla es 1, la hormiga gira a la izquierda.  
 \end{itemize}
 
-Este comportamiento genera dos dinámicas principales:  
+Este sencillo conjunto de reglas produce dos dinámicas características:  
 \begin{enumerate}
 	\item Un comportamiento inicial caótico y aparentemente aleatorio.  
-	\item La formación de un patrón cíclico conocido como ``carretera", que permite a la hormiga expandirse de forma infinita en una dirección.  
+	\item La formación de un patrón cíclico denominado ``carretera", que permite a la hormiga expandirse de forma infinita en una dirección.  
 \end{enumerate}
 
-En la Figura \ref{img:rl1} se muestra el resultado de una única hormiga tras realizar 10,000 pasos. Posteriormente, en la Figura \ref{img:rl2}, se observa la construcción de la carretera, que se establece casi inmediatamente después. La gráfica del crecimiento muestra una expansión constante desde ese punto.
+En la Figura \ref{img:rl1} se muestra el resultado del movimiento de una hormiga tras completar 10,000 pasos. Posteriormente, en la Figura \ref{img:rl2}, se observa cómo la carretera se desarrolla casi de manera inmediata, permitiendo un crecimiento constante desde ese punto. 
 
-Cada gráfico utiliza colores para representar los diferentes estados, donde las casillas negras indican áreas no visitadas y, por lo tanto, sin un estado asignado.
+Cada gráfico utiliza colores para representar los diferentes estados, con las casillas negras indicando áreas no visitadas, que no poseen un estado asignado.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{img/rl1.png}
-	\caption{Primeros 10,000 pasos de una hormiga con regla RL.}
+	\caption{Movimiento inicial de una hormiga bajo la regla RL (10,000 pasos).}
 	\label{img:rl1}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{img/rl2.png}
-	\caption{Construcción de la carretera de una hormiga con regla RL.}
+	\caption{Construcción de la carretera por una hormiga bajo la regla RL.}
 	\label{img:rl2}
 \end{figure}
 
-Como se mencionó anteriormente, las hormigas de Langton pueden adoptar múltiples reglas, lo que permite simular y analizar comportamientos variados en el espacio bidimensional.
+Como se mencionó previamente, las hormigas de Langton pueden operar con diversas reglas, lo que permite modelar y analizar comportamientos variados en un espacio bidimensional. A continuación, en la Figura \ref{fig:rules}, se presentan configuraciones generadas con distintas reglas. Algunas de estas reglas permiten la creación de carreteras de manera casi inmediata.
 
-A continuación se muestran algunas configuraciones creadas por diferentes reglas.
+\begin{figure}[h!]
+	\centering
+	% Primera fila: Regla LLR
+	\begin{minipage}{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{img/llr1.png}
+	\end{minipage}%
+	\hspace{0.5cm}%
+	\begin{minipage}{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{img/llr2.png}
+	\end{minipage}
+	\vspace{0.3cm}
+	
+	\begin{minipage}{0.9\textwidth}
+		\centering
+		\small La regla LLR crea carreteras de forma casi inmediata. Incluso tiene la capacidad de añadir carriles en carreteras existentes. Las perturbaciones en la gráfica representan colisiones con otros elementos en el espacio, aunque, generalmente, se necesitan pocas generaciones para que la hormiga recupere su trayectoria.
+	\end{minipage}
+	\vspace{0.5cm}
+	
+	% Segunda fila: Regla RLLR
+	\begin{minipage}{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{img/rllr1.png}
+	\end{minipage}%
+	\hspace{0.5cm}%
+	\begin{minipage}{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{img/rllr2.png}
+	\end{minipage}
+	\vspace{0.3cm}
+	
+	\begin{minipage}{0.9\textwidth}
+		\centering
+		\small La regla RLLR se desarrolla en forma cuadrada y no crece hasta que la estructura interna ha cambiado casi por completo. Además, a diferencia de las reglas anteriores, las densidades de estado en esta regla presentan cambios con mayor frecuencia.
+	\end{minipage}
+	\vspace{0.5cm}
+	
+	% Tercera fila: Regla RRRLLL
+	\begin{minipage}{0.45\textwidth}
+		\centering
+		\includegraphics[width=1.2\textwidth]{img/rrrlll1.png}
+	\end{minipage}%
+	\vspace{0.3cm}
+	
+	\begin{minipage}{0.9\textwidth}
+		\centering
+		\small La regla RRRLLL genera una carretera que tarda el doble de tiempo en formarse en comparación con la regla LLR.
+	\end{minipage}
+	
+	\caption{Comparación de comportamientos según diferentes reglas.}
+	\label{fig:rules}
+\end{figure}
 
-
+\clearpage
 
 \subsection{Interacción de múltiples hormigas en el mismo espacio}
 
-En un espacio que tenga $N$ estados pueden existir todas las hormigas cuya regla tenga la misma longitud.
+En un espacio con $N$ estados, es posible la coexistencia de múltiples hormigas cuyas reglas tengan la misma longitud, incluso si dichas reglas no coinciden. Sin embargo, surgen dos problemas principales:  
+\begin{enumerate}
+	\item Si una hormiga tiene menos reglas que los estados disponibles, no tendrá un comportamiento definido al encontrarse en un estado superior al que reconoce.  
+	\item Si una hormiga tiene más reglas que los estados disponibles, generará estados inaccesibles para las demás hormigas, dificultando su interacción con el entorno compartido.  
+\end{enumerate}
 
-El comportamiento pseudo-aleatorio de la hormiga de Langton puede volverse mas caótico con la interacción de múltiples hormigas tal como se observa en la figura \ref{img:mul1}. 
+Para abordar estas limitaciones, se proponen las siguientes soluciones:  
+\begin{itemize}
+	\item Si una hormiga no tiene una regla definida para un estado, avanza en línea recta mientras cambia el estado de la casilla.  
+	\item Si una hormiga tiene más reglas que los estados disponibles, sus reglas se restringen al número de estados definidos en el espacio.  
+\end{itemize}
+
+Estas soluciones permiten observar nuevos comportamientos, como hormigas que avanzan en línea recta. En la Figura \ref{img:rl_3}, se ilustra el movimiento de una hormiga con la regla RL en un espacio de tres estados.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{img/rl2.png}
-	\caption{Construcción de la carretera de una hormiga con regla RL.}
+	\includegraphics[width=\textwidth]{img/rl_3d.png}
+	\caption{Hormiga con regla RL en un espacio con 3 estados.}
+	\label{img:rl_3}
+\end{figure}
+
+\subsubsection{Misma regla}
+
+El comportamiento pseudoaleatorio característico de la hormiga de Langton se intensifica cuando interactúan múltiples hormigas, como se observa en la Figura \ref{img:mul1}. Sin embargo, dependiendo de la configuración inicial, pueden emerger dos patrones distintivos. 
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{img/mul1.png}
+	\caption{Interacción de múltiples hormigas con regla RL.}
 	\label{img:mul1}
 \end{figure}
 
-\subsection{interacción entre múltiples hormigueros}
+\begin{itemize}
+	\item \textbf{Construcción de carreteras}: El comportamiento caótico inicial puede derivar en la construcción de una carretera antes de alcanzar los 10,000 pasos. Un ejemplo de este fenómeno se ilustra en la Figura \ref{img:2rl}.  
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=\textwidth]{img/2rl.png}
+		\caption{Construcción de una carretera por dos hormigas con regla RL.}
+		\label{img:2rl}
+	\end{figure}
+	
+	\item \textbf{Ciclos}: Colocando dos hormigas en posiciones específicas, es posible generar comportamientos periódicos, como se muestra en la Figura \ref{fig:pat}.  
+	Cabe destacar que obtener un ciclo no es complicado: basta con duplicar una hormiga y posicionarla cerca, ya sea en la misma dirección o en direcciones opuestas.  
+\end{itemize}
+
+	
+	La interacción de múltiples hormigas en el mismo espacio puede provocar colisiones, es decir, situaciones en las que dos hormigas intentan ocupar la misma casilla. Para resolver este problema, se selecciona al azar una hormiga que ocupará la casilla, evitando que dos hormigas compartan la misma posición. \\ \\
+
+\begin{figure}[h!]
+	\centering
+	\begin{minipage}{0.45\textwidth}
+	\centering
+	\includegraphics[width=1.4\textwidth]{img/2rl_1.png}
+\end{minipage}%
+\vspace{0.3cm}
+
+\begin{minipage}{0.9\textwidth}
+	\centering
+	\small Dos hormigas separadas por $(1, 0)$ y orientadas en la misma dirección son capaces de modificar toda la región accesible del espacio. 
+\end{minipage}
+\vspace{0.5cm}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	% Primera fila
+
+	\begin{minipage}{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{img/2_rl_1.png}
+	\end{minipage}%
+	\hspace{0.5cm}%
+	\begin{minipage}{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{img/2_rl_2.png}
+	\end{minipage}
+	\vspace{0.3cm}
+	
+	\begin{minipage}{0.9\textwidth}
+		\centering
+		\small Por otro lado, si están separadas por $(+2, 0)$, generan un ciclo con un periodo de 2,175 pasos.  
+	\end{minipage}
+	\vspace{0.5cm}
+	
+	% Segunda fila
+	\begin{minipage}{0.45\textwidth}
+		\centering
+		\includegraphics[width=1.4\textwidth]{img/4_rl_1.png}
+	\end{minipage}
+	\vspace{0.3cm}
+	
+	\begin{minipage}{0.9\textwidth}
+		\centering
+		\small Cuatro hormigas RL ubicadas en las posiciones iniciales $A_1(0, 0, U)$, $A_2(3, 0, U)$, $A_3(0, 3, D)$ y $A_4(3, 3, D)$ generan un ciclo con un periodo de 220 generaciones.  
+	\end{minipage}
+	
+	\caption{Patrones periódicos generados por múltiples hormigas con regla RL.}
+	\label{fig:pat}
+\end{figure}
+
+\clearpage
+\subsubsection{Multiples reglas}
+Como ya se menciono, multiples hormigas pueden coexistir en el mismo espacio. En la figura \ref{fig:rules_mul} se muestran varias de estas configuraciones:
+\begin{figure}[h!]
+	\centering
+	% Primera fila
+	
+	\begin{minipage}{0.6\textwidth}
+		\centering
+		\includegraphics[width=1.3\textwidth]{img/mul_1.png}
+	\end{minipage}%
+	\vspace{0.3cm}
+	
+	% Segunda fila
+	\begin{minipage}{0.6\textwidth}
+		\centering
+		\includegraphics[width=1.3\textwidth]{img/mul_2.png}
+	\end{minipage}
+	\vspace{0.3cm}
+	
+	% Segunda fila
+	\begin{minipage}{0.6\textwidth}
+		\centering
+		\includegraphics[width=1.3\textwidth]{img/mul_3.png}
+	\end{minipage}
+	\vspace{0.3cm}
+
+	\caption{Patrones periódicos generados por múltiples hormigas con regla RL.}
+	\label{fig:rules_mul}
+\end{figure}
+
+\clearpage
+\section{Hormigueros}
 
 
 	\clearpage

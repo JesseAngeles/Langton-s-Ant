@@ -17,7 +17,10 @@ void Space::move()
     for (const std::shared_ptr<Ant> &ant : ants)
     {
         Position2D pos = ant->getPos();
-        ant->rotate(space[pos.x][pos.y].state);
+        if (space[pos.x][pos.y].state == -1)
+            ant->rotate(0);
+        else
+            ant->rotate(space[pos.x][pos.y].state);
     }
 
     // Obtener todas las casillas que seran ocupadas
@@ -40,7 +43,7 @@ void Space::move()
         if (cell.second.size() == 1)
             movable_ants.push_back(cell.second[0]);
         else
-            movable_ants.push_back(cell.second[std::round(randomizer.generate(0, cell.second.size()))]);
+            movable_ants.push_back(cell.second[std::round(randomizer.generate(0, cell.second.size() - 1))]);
 
     // Eliminar referencia de ants
     for (const std::shared_ptr<Ant> &ant : movable_ants)
@@ -53,7 +56,11 @@ void Space::move()
         Position2D pos = ant->getPos();
         Position2D new_pos = ant->getNextMove();
         ant->setPos(new_pos);
-        space[pos.x][pos.y].state = (space[pos.x][pos.y].state + 1) % states;
+
+        if (space[pos.x][pos.y].state == -1)
+            space[pos.x][pos.y].state = (space[pos.x][pos.y].state + 2) % states;
+        else
+            space[pos.x][pos.y].state = (space[pos.x][pos.y].state + 1) % states;
         space[new_pos.x][new_pos.y].ant = ant;
     }
 }
@@ -91,7 +98,7 @@ void Space::clear()
             cell.ant = std::nullopt;
             cell.state = -1;
         }
-    
+
     ants.clear();
 }
 
