@@ -9,11 +9,12 @@ GUI::GUI(const std::shared_ptr<Space> &space)
       tb_rule(this, default_text),
       btn_start(this, default_text),
       btn_reset(this, default_text),
-      btn_space(this, default_text),
+      btn_state(this, default_text),
       btn_ant(this, default_text),
       btn_colony(this, default_text)
 {
     initDefaultText();
+    rule_rize = space->getStates();
 
     tb_rule.setText(default_text);
 
@@ -23,8 +24,8 @@ GUI::GUI(const std::shared_ptr<Space> &space)
     btn_reset.setText(default_text);
     btn_reset.setText("Reset");
 
-    btn_space.setText(default_text);
-    btn_space.setText("Set space");
+    btn_state.setText(default_text);
+    btn_state.setText("Set state");
 
     btn_ant.setText(default_text);
     btn_ant.setText("Add ant");
@@ -38,7 +39,7 @@ GUI::GUI(const std::shared_ptr<Space> &space)
     frame.addChild(std::make_shared<Button>(btn_start));
     frame.addChild(std::make_shared<Button>(btn_reset));
     frame.addChild(std::make_shared<Button>(btn_ant));
-    frame.addChild(std::make_shared<Button>(btn_space));
+    frame.addChild(std::make_shared<Button>(btn_state));
     frame.addChild(std::make_shared<Button>(btn_colony));
 
     addFrame(frame);
@@ -56,4 +57,28 @@ void GUI::initDefaultText()
     default_text.setFillColor(Color::Black);
     default_text.setCharacterSize(20);
     default_text.setString("Default Text");
+}
+
+// Public functions
+void GUI::run()
+{
+    Clock clock;
+    float elapsed_time = 0.0f;
+
+    while (window.isOpen())
+    {
+        float delta_time = clock.restart().asSeconds();
+        if (is_running)
+        {
+            elapsed_time += delta_time;
+            if (elapsed_time >= 5.0f)
+            {
+                std::cout << "Han pasado 5 segundos." << std::endl;
+                elapsed_time = 0.0f; // Reinicia el tiempo acumulado
+            }
+        }
+
+        handleEvent();
+        render();
+    }
 }

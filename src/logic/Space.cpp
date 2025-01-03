@@ -83,6 +83,18 @@ void Space::removeAnt(Position2D pos)
     }
 }
 
+void Space::clear()
+{
+    for (std::vector<Cell> &line : space)
+        for (Cell &cell : line)
+        {
+            cell.ant = std::nullopt;
+            cell.state = 0;
+        }
+    
+    ants.clear();
+}
+
 int Space::insertColony(Position2D center, float radius, int population, std::vector<Rule> rules, int colony)
 {
     // Create N ants

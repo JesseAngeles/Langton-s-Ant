@@ -11,7 +11,7 @@
 #include "gui/TextBoxRule.hpp"
 #include "gui/ButtonStart.hpp"
 #include "gui/ButtonReset.hpp"
-#include "gui/ButtonSpace.hpp"
+#include "gui/ButtonState.hpp"
 #include "gui/ButtonAnt.hpp"
 #include "gui/ButtonColony.hpp"
 
@@ -21,10 +21,10 @@ class GUI : public MainWindow
 {
 private:
     // Attributes
-    int option;
-
-    // Logic
-    std::shared_ptr<Space> space;
+    int option = 0;
+    int rule_rize;
+    bool is_running = false;
+    std::string current_rule;
 
     // GUI Components
     sf::Font font;
@@ -38,7 +38,7 @@ private:
 
     ButtonStart btn_start;
     ButtonReset btn_reset;
-    ButtonSpace btn_space;
+    ButtonState btn_state;
     ButtonAnt btn_ant;
     ButtonColony btn_colony;
 
@@ -47,15 +47,27 @@ private:
 public:
     // Constructor
     GUI(const std::shared_ptr<Space> &);
+    void run() override;
 
+    // Logic
+    std::shared_ptr<Space> space;
+
+    // Test functions
     void testButton() { std::cout << "Test\n"; };
     void testTextBox(std::string text) { std::cout << "Test: " << text << std::endl; }
     void testGrid(int x, int y) { std::cout << "Test: (" << x << "," << y << ")\n"; }
 
     // Getters
+    int getOption() const { return option; }
+    int getRuleSize() const { return rule_rize; }
+    bool isRunning() const { return is_running; }
+    std::string getRule() const { return current_rule; }
 
     // Setters
     void setOption(int option) { this->option = option; }
+    void setRuleSize(int rule_size) { this->rule_rize = rule_rize; }
+    void switchRunning() { is_running = !is_running; }
+    void setRule(std::string current_rule) { this->current_rule = current_rule; }
 };
 
 #endif // GUI_HPP

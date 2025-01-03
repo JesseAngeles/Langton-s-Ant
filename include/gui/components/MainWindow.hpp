@@ -20,7 +20,7 @@ protected:
     // Frames
     std::vector<std::shared_ptr<Frame>> frames;
 
-    void handleEvent();
+    virtual void handleEvent();
     void render();
 
 public:
@@ -30,7 +30,7 @@ public:
     void addFrame(Frame frame) { frames.push_back(std::make_shared<Frame>(frame)); }
 
     // Drawer
-    void run();
+    virtual void run();
 };
 
 #endif // MAIN_WINDOW_HPP

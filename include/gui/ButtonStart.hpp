@@ -17,18 +17,15 @@ private:
     GUI *gui;
     
 public:
-    ButtonStart(GUI *gui, Text text) // Recibe un puntero a GUI
+    ButtonStart(GUI *gui, Text text)
         : Button(Vector2f(10, 10), Vector2f(200, 50), Color(255, 255, 100), text),
-          gui(gui) // Inicializa el puntero
+          gui(gui)
     {
-        this->text.setString("Start");
-
-        // Definir el callback para el evento onClick usando std::bind
         this->fun = std::bind(&ButtonStart::functionButton, this);
 
-        this->setOnClick(this->fun); // Asignar el callback
+        this->setOnClick(this->fun);
 
-        background.setOutlineColor(Color::Blue); // Añadir un borde azul
+        background.setOutlineColor(Color::Blue); 
         background.setOutlineThickness(2.f);
     }
 

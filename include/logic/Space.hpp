@@ -35,6 +35,7 @@ public:
     void switchCell(Position2D pos) { space[pos.x][pos.y].state = (space[pos.x][pos.y].state + 1) % states; }
     bool insertAnt(std::shared_ptr<Ant> &ant);
     void removeAnt(Position2D pos);
+    void clear();
 
     int insertColony(Position2D center, float radius, int population, std::vector<Rule> rules, int colony);
 
