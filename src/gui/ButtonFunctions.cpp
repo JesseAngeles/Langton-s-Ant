@@ -116,4 +116,9 @@ void MainGrid::functionGrid(int x, int y)
 
         this->rectangles[x][y]->setFillColor(Color::Red);
     }
+    else if (gui->space->getSpace()[x][y].ant.has_value())
+    {
+        gui->space->removeAnt(Position2D(x, y));
+        this->rectangles[x][y]->setFillColor(Color::Black);
+    }
 }

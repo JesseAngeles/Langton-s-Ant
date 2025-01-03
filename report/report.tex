@@ -168,47 +168,84 @@
 	
 	Este autómata celular esta diseñado unicamente para una hormiga.
 	
-	\subsection{Objetivo de la Práctica}
-	
-	En esta práctica, se busca estudiar:  
-	\begin{itemize}
-		\item El impacto de diferentes reglas sobre el comportamiento de las hormigas.  
-		\item Las interacciones entre múltiples hormigas en un mismo espacio.  
-		\item La formación, el comportamiento y la interacción entre colonias independientes.  
-	\end{itemize}
-	
-	Durante las pruebas, se analizarán y graficarán las densidades de los estados de las celdas y la expansión desde el punto inicial. Las simulaciones se ejecutaron en un software diseñado específicamente para esta práctica, detallado en la sección de metodología.
-	
-	\section{Metodología}
-	
-	\subsection{Diseño de software}
-	
-	Se diseña un programa en c++ implementado el proyecto \textit{Graphic Mode} que permite diseñar interfaces graficas usando la la librería SFML, este proyecto incorpora múltiples elementos que permiten la creación y manipulación de frames, botones, campos de texto, cuadriculas y graficas, elementos necesarios para esta practica.
-	
-	\subsection{Comportamiento de una sola hormiga de Langton}
-	
-	Tradicionalmente la hormiga de Langton se define por la regla RL, donde si el estado de la casilla es 0 gira a la derecha y si es uno gira a la izquierda. Esta tiene tiene dos comportamientos, el primero es caotico y aleatorio, el segundo es un ciclo de construcción de lo que se le llama carretera, un ciclo que que permite a la hormiga expandirse de forma infinita en una dirección. En la figura \ref{img:rl1} se muestra el resultado de una única hormiga después de dar 10000 pasos. Por otro lado, en la imagen \ref{img:rl2} se observa la construcción de la carretera casi inmediatamente después, de igual forma la grafica crece de manera constante a partir de ese punto.
-	
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=\textwidth]{img/rl1.png}
-		\caption{Primeros 10000 pasos de una hormiga RL}
-		\label{img:rl1}
-	\end{figure}
-	
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=\textwidth]{img/rl2.png}
-		\caption{Construcción de carretera de una hormiga RL}
-		\label{img:rl2}
-	\end{figure}
-	
-	Como se menciono en la definición de l hormiga de Langton, las hormigas pueden adquirir multiples reglas y representarlas en el espacio.
-	
-	\subsection{Interacción de multiples hormigas en el mismo espacio}
-	
-	\subsection{interacción entre multiples hormigueros}
-	
+\section{Objetivo de la Práctica}
+
+El objetivo de esta práctica es estudiar los siguientes aspectos:  
+\begin{itemize}
+	\item El impacto de diferentes reglas sobre el comportamiento de las hormigas.  
+	\item Las interacciones entre múltiples hormigas en un mismo espacio.  
+	\item La formación, el comportamiento y la interacción entre colonias independientes.  
+\end{itemize}
+
+Durante las pruebas, se analizarán y graficarán las densidades de los estados de las celdas y la expansión desde el punto inicial. Las simulaciones se llevaron a cabo utilizando un software desarrollado específicamente para esta práctica, detallado en la sección de metodología.
+
+\section{Metodología}
+
+\subsection{Diseño de Software}
+
+El software fue desarrollado en C++ utilizando el proyecto \textit{Graphic Mode}, que implementa interfaces gráficas mediante la librería SFML. Este programa incorpora múltiples elementos esenciales para la práctica, tales como:  
+\begin{itemize}
+	\item Creación y manipulación de \textit{frames}.
+	\item Implementación de botones interactivos.
+	\item Campos de texto para la entrada de datos.
+	\item Representación de cuadrículas y gráficas.
+\end{itemize}
+
+Estas herramientas permiten diseñar un entorno visual adecuado para simular, visualizar y analizar el comportamiento de las hormigas de Langton.
+
+\subsection{Comportamiento de una sola Hormiga de Langton}
+
+Tradicionalmente, la hormiga de Langton se define por la regla \textbf{RL}, donde:  
+\begin{itemize}
+	\item Si el estado de la casilla es 0, la hormiga gira a la derecha.  
+	\item Si el estado de la casilla es 1, la hormiga gira a la izquierda.  
+\end{itemize}
+
+Este comportamiento genera dos dinámicas principales:  
+\begin{enumerate}
+	\item Un comportamiento inicial caótico y aparentemente aleatorio.  
+	\item La formación de un patrón cíclico conocido como ``carretera", que permite a la hormiga expandirse de forma infinita en una dirección.  
+\end{enumerate}
+
+En la Figura \ref{img:rl1} se muestra el resultado de una única hormiga tras realizar 10,000 pasos. Posteriormente, en la Figura \ref{img:rl2}, se observa la construcción de la carretera, que se establece casi inmediatamente después. La gráfica del crecimiento muestra una expansión constante desde ese punto.
+
+Cada gráfico utiliza colores para representar los diferentes estados, donde las casillas negras indican áreas no visitadas y, por lo tanto, sin un estado asignado.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{img/rl1.png}
+	\caption{Primeros 10,000 pasos de una hormiga con regla RL.}
+	\label{img:rl1}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{img/rl2.png}
+	\caption{Construcción de la carretera de una hormiga con regla RL.}
+	\label{img:rl2}
+\end{figure}
+
+Como se mencionó anteriormente, las hormigas de Langton pueden adoptar múltiples reglas, lo que permite simular y analizar comportamientos variados en el espacio bidimensional.
+
+A continuación se muestran algunas configuraciones creadas por diferentes reglas.
+
+
+
+\subsection{Interacción de múltiples hormigas en el mismo espacio}
+
+En un espacio que tenga $N$ estados pueden existir todas las hormigas cuya regla tenga la misma longitud.
+
+El comportamiento pseudo-aleatorio de la hormiga de Langton puede volverse mas caótico con la interacción de múltiples hormigas tal como se observa en la figura \ref{img:mul1}. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{img/rl2.png}
+	\caption{Construcción de la carretera de una hormiga con regla RL.}
+	\label{img:mul1}
+\end{figure}
+
+\subsection{interacción entre múltiples hormigueros}
+
 
 	\clearpage
 	\addcontentsline{toc}{section}{Referencias}

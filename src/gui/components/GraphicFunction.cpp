@@ -86,6 +86,12 @@ void GraphicFunction::rescale(const sf::Vector2f &scale, const sf::Vector2f &ori
     this->origin = origin;
 }
 
+void GraphicFunction::clear()
+{
+    dots.clear();
+    lines.clear();
+}
+
 // Setters
 void GraphicFunction::setDefaultDot(const sf::CircleShape &default_dot)
 {

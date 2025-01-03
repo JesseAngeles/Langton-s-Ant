@@ -2,7 +2,7 @@
 
 // Constructor
 Space::Space(int width, int height, int states, std::set<std::shared_ptr<Ant>> ants)
-    : space(width, std::vector<Cell>(height, Cell(0))), states(states), ants(ants), randomizer()
+    : space(width, std::vector<Cell>(height, Cell(-1))), states(states), ants(ants), randomizer()
 {
     for (const std::shared_ptr<Ant> &ant : ants)
         this->space[ant->getPos().x][ant->getPos().y].ant = ant;
@@ -89,7 +89,7 @@ void Space::clear()
         for (Cell &cell : line)
         {
             cell.ant = std::nullopt;
-            cell.state = 0;
+            cell.state = -1;
         }
     
     ants.clear();

@@ -156,6 +156,8 @@ void GUI::initColors()
 
     for (int i = 0; i < rule_size; i++)
         colors.push_back(generateRandomColor());
+
+    graphic->setColors(colors);
 }
 
 sf::Color GUI::generateRandomColor()

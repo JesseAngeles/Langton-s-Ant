@@ -14,12 +14,13 @@ class MainGraphic : public Graphic
 {
 private:
     std::function<float(float)> fun0; // Usar std::function para la función de callback
-    std::function<float(float)> fun1;
-
     std::vector<std::shared_ptr<GraphicFunction>> functions;
 
     GUI *gui;
     int max = 0;
+
+    CircleShape lineal_circle;
+    CircleShape log_circle;
 
 public:
     // Constructor
@@ -30,22 +31,38 @@ public:
         CircleShape circle(2);
         circle.setRadius(3);
         circle.setFillColor(sf::Color::Red);
-        circle.setOutlineThickness(1);
+        circle.setOutlineThickness(0);
         circle.setOutlineColor(sf::Color::Black);
 
-        CircleShape circle_log = circle;
-        circle_log.setOutlineThickness(0);
+        lineal_circle = circle;
+        log_circle = circle;
 
         sf::VertexArray line(sf::Lines, 2);
         line[0].color = line[1].color = sf::Color::Black;
 
         this->fun0 = std::bind(&MainGraphic::lineFunction, this, std::placeholders::_1);
-        this->fun1 = std::bind(&MainGraphic::lineFunction, this, std::placeholders::_1);
 
         std::shared_ptr<GraphicFunction> fun_lineal = drawFunction(fun0, 0, 0, 1, circle, line);
-        std::shared_ptr<GraphicFunction> fun_log = drawFunction(fun1, 0, 0, 1, circle_log, line);
+        std::shared_ptr<GraphicFunction> fun_log = drawFunction(fun0, 0, 0, 1, log_circle, line);
         functions.push_back(fun_lineal);
         functions.push_back(fun_log);
+    }
+
+    void setColors(const std::vector<Color> &colors)
+    {
+        functions.clear();
+        for (const Color &color : colors)
+        {
+            lineal_circle.setFillColor(color);
+            log_circle.setFillColor(color);
+
+            std::shared_ptr<GraphicFunction> lineal_fun = drawFunction(fun0, 0, 0, 1, lineal_circle);
+            std::shared_ptr<GraphicFunction> log_fun = drawFunction(fun0, 0, 0, 1, log_circle);
+            
+            functions.push_back(lineal_fun);
+            functions.push_back(log_fun);
+        }
+
     }
 
     void clear();

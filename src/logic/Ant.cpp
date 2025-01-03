@@ -13,10 +13,7 @@ void Ant::rotate(const int &state)
 {
     Rule rule_to_apply = rules[state];
 
-    if (state > rules.size())
-        std::cout << "dsd";
-
-    if (rule_to_apply != Rule::LEFT)
+    if (rule_to_apply == Rule::LEFT)
     {
         if (direction == Direction::LEFT)
             direction = Direction::DOWN;
@@ -27,7 +24,7 @@ void Ant::rotate(const int &state)
         else if (direction == Direction::DOWN)
             direction = Direction::RIGHT;
     }
-    else if (rule_to_apply != Rule::RIGHT)
+    else if (rule_to_apply == Rule::RIGHT)
     {
         if (direction == Direction::LEFT)
             direction = Direction::UP;

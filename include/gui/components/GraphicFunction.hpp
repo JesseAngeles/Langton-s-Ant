@@ -34,6 +34,7 @@ public:
     // Functions
     void addPoint(sf::Vector2f position, bool connect_last = true);
     void rescale(const sf::Vector2f &scale, const sf::Vector2f &origin);
+    void clear();
 
     // Getters
     std::vector<sf::CircleShape> getDots() const { return dots; }

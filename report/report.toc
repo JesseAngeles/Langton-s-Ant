@@ -3,10 +3,10 @@
 \contentsline {section}{\numberline {2}Marco Teórico}{3}{}%
 \contentsline {subsection}{\numberline {2.1}Funcionamiento de la Hormiga de Langton}{3}{}%
 \contentsline {subsection}{\numberline {2.2}Clasificación: Agente y Autómata Celular}{4}{}%
-\contentsline {subsection}{\numberline {2.3}Objetivo de la Práctica}{5}{}%
-\contentsline {section}{\numberline {3}Metodología}{5}{}%
-\contentsline {subsection}{\numberline {3.1}Diseño de software}{5}{}%
-\contentsline {subsection}{\numberline {3.2}Comportamiento de una sola hormiga de Langton}{5}{}%
-\contentsline {subsection}{\numberline {3.3}Interacción de multiples hormigas en el mismo espacio}{6}{}%
-\contentsline {subsection}{\numberline {3.4}interacción entre multiples hormigueros}{6}{}%
-\contentsline {section}{Referencias}{7}{}%
+\contentsline {section}{\numberline {3}Objetivo de la Práctica}{5}{}%
+\contentsline {section}{\numberline {4}Metodología}{5}{}%
+\contentsline {subsection}{\numberline {4.1}Diseño de Software}{5}{}%
+\contentsline {subsection}{\numberline {4.2}Comportamiento de una sola Hormiga de Langton}{5}{}%
+\contentsline {subsection}{\numberline {4.3}Interacción de múltiples hormigas en el mismo espacio}{7}{}%
+\contentsline {subsection}{\numberline {4.4}interacción entre múltiples hormigueros}{8}{}%
+\contentsline {section}{Referencias}{9}{}%
