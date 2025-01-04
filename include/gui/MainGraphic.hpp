@@ -16,6 +16,8 @@ private:
     std::function<float(float)> fun0; // Usar std::function para la función de callback
     std::vector<std::shared_ptr<GraphicFunction>> functions;
 
+    int max_dots = 200;
+
     GUI *gui;
     int max = 0;
 

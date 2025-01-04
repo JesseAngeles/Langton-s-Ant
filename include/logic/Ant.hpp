@@ -9,8 +9,6 @@
 #include "Direction.hpp"
 #include "Rule.hpp"
 
-
-
 class Ant
 {
 private:

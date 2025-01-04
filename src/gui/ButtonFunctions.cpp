@@ -6,6 +6,8 @@
 #include "gui/ButtonColony.hpp"
 
 #include "gui/TextBoxRule.hpp"
+#include "gui/TextBoxRadio.hpp"
+#include "gui/TextBoxSize.hpp"
 
 #include "gui/MainGrid.hpp"
 
@@ -70,6 +72,11 @@ void ButtonAnt::functionButton()
 
 void ButtonColony::functionButton()
 {
+    gui->switchColony();
+    if (gui->isColony())
+        this->text.setString("Position...");
+    else 
+        this->text.setString("Insert colony");
 }
 
 void TextBoxRule::functionButton(const std::string &input)
@@ -81,8 +88,32 @@ void TextBoxRule::functionButton(const std::string &input)
     gui->initColors();
 }
 
+void TextBoxRadio::functionButton(const std::string &input)
+{
+    gui->setRadio(std::stoi(input));
+}
+
+void TextBoxSize::functionButton(const std::string &input)
+{
+    gui->setSize(std::stoi(input));
+}
+
 void MainGrid::functionGrid(int x, int y)
 {
+    // insert colony
+    if(gui->isColony())
+    {
+        std::string rule_string = gui->getRule();
+        std::vector<Rule> rules = stringToRules(rule_string);
+
+        gui->setCurrentColonies(gui->getCurrentColonies() + 1);
+        gui->space->insertColony(Position2D(x, y), gui->getRadio(), gui->getSize(), rules, gui->getCurrentColonies());
+        gui->move();
+
+        return;
+    }
+
+
     // Insert one ant
     int direction_int = gui->getDirection();
     if (direction_int)

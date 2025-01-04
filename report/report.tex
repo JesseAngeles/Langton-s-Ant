@@ -8,6 +8,43 @@
 \usepackage{url}
 \usepackage{enumitem}
 \usepackage{float}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{inconsolata} 
+
+% Definición de colores personalizados
+\definecolor{bgcolor}{rgb}{0.97,0.97,0.97}    % Fondo claro
+\definecolor{keywordcolor}{rgb}{0.1,0.1,0.9}  % Palabras clave: Azul oscuro
+\definecolor{stringcolor}{rgb}{0.2,0.6,0.2}   % Cadenas: Verde
+\definecolor{commentcolor}{rgb}{0.5,0.5,0.5}  % Comentarios: Gris medio
+\definecolor{identifiercolor}{rgb}{0.0,0.0,0.5} % Identificadores: Azul
+\definecolor{linenumbercolor}{rgb}{0.6,0.6,0.6} % Números de línea: Gris claro
+
+
+% Configuración del entorno de código
+\lstdefinestyle{lightcpp}{
+	backgroundcolor=\color{bgcolor},         % Fondo claro
+	basicstyle=\ttfamily\small\color{black}, % Texto negro, fuente monoespaciada
+	commentstyle=\color{commentcolor}\itshape, % Comentarios en gris y cursiva
+	keywordstyle=\color{keywordcolor}\bfseries, % Palabras clave en azul oscuro y negrita
+	stringstyle=\color{stringcolor},         % Cadenas en verde
+	identifierstyle=\color{identifiercolor}, % Identificadores en azul
+	numberstyle=\tiny\color{linenumbercolor}, % Números de línea pequeños y grises claros
+	numbers=left,                            % Mostrar números de línea
+	numbersep=10pt,                          % Espacio entre números y código
+	breaklines=true,                         % Cortar líneas largas
+	tabsize=4,                               % Tamaño de tabulación
+	frame=single,                            % Marco alrededor del código
+	framesep=8pt,                            % Separación entre el marco y el texto
+	rulecolor=\color{linenumbercolor},       % Color del marco
+	showstringspaces=false,                  % No mostrar espacios en cadenas
+	language=C++,                            % Lenguaje: C++
+	captionpos=b                             % Posición de la leyenda: abajo
+}
+
+% Aplicar el estilo por defecto
+\lstset{style=lightcpp}
+
 
 \title{La hormiga de Langton y la interacción entre diferentes hormigueros}
 \author{Erick Jesse Angeles López}
@@ -70,7 +107,7 @@
 	\centerline{}
 	\centerline{}
 	\centerline{\bf {Disponible en:}}
-	\centerline{\text{\url{GITHUB}}}
+	\centerline{\text{\url{github.com/JesseAngeles/Langton-s-Ant}}}
 	
 	
 	
@@ -90,10 +127,12 @@
 	\bigskip
 	
 	\begin{abstract} 
+		La hormiga de Langton destaca por su simplicidad y su capacidad para generar patrones complejos a partir de reglas simples. En esta practica se explora el comportamiento de una hormiga individual, así como la interacción de múltiples hormigas y hormigueros bajo diferentes configuraciones. Se analizaron reglas clásicas como RL y otras más complejas para identificar la dinámica y la evolución de estos sistemas.
 		
+		Además, se examinan fenómenos emergentes como la formación de carreteras, ciclos periódicos y comportamientos caóticos. 
 	\end{abstract}
 	
-	\keywords{}
+	\keywords{Hormiga de Langton, Regla, Evolución, C++, Hormiguero,}
 	
 	\clearpage
 	
@@ -103,15 +142,15 @@
 	\clearpage
 	\section{Introducción}
 	
-	La hormiga de Langton, creada por Chris Langton en 1986, es un modelo computacional sencillo que genera comportamientos emergentes y patrones complejos a partir de reglas simples. Originalmente, la hormiga sigue dos reglas básicas que dan lugar a un comportamiento caótico e impredecible. Este modelo es un excelente ejemplo de sistemas dinámicos en los que reglas locales producen estructuras globales.
+	La hormiga de Langton, creada por Chris Langton en 1986, es un modelo computacional sencillo que genera comportamientos emergentes y patrones complejos a partir de reglas simples. Originalmente, la hormiga sigue dos reglas básicas que dan lugar a un comportamiento caótico e impredecible. Este modelo ejemplifica estructuras del orden al caos, y del caos al orden \cite{bib:lan1}.
 	
-	En esta práctica, exploramos el comportamiento de la hormiga de Langton bajo diferentes condiciones, como cambios en las reglas, la interacción de múltiples hormigas en un mismo espacio y el establecimiento de colonias. Nuestro objetivo es analizar las dinámicas emergentes y las densidades de los estados en el tablero, así como estudiar la expansión del área inicial ocupada por las hormigas. Para ello, se diseñó un software específico que permite realizar simulaciones personalizadas y graficar los resultados.
+	En esta práctica, se explora el comportamiento de la hormiga de Langton bajo diferentes condiciones, como cambios en las reglas, la interacción de múltiples hormigas en un mismo espacio y el establecimiento de colonias. Nuestro objetivo es analizar las dinámicas emergentes y las densidades de los estados en el espacio. Para ello, se diseñó un software específico que permite realizar simulaciones personalizadas y graficar los resultados.
 	
 	\section{Marco Teórico}
 	
 	\subsection{Funcionamiento de la Hormiga de Langton}
 	
-	La hormiga de Langton se desplaza sobre una cuadrícula bidimensional (teóricamente infinita) en la que cada celda puede tener un estado de 0 o 1. Sigue dos reglas simples:  
+	La hormiga de Langton se desplaza sobre una cuadrícula bidimensional (teóricamente infinita) en la que cada celda puede tener un estado de 0 o 1 \cite{bib:lan2}. Sigue dos reglas simples:  
 	\begin{enumerate}
 		\item Si la hormiga está en una celda con estado 0:
 		\begin{itemize}
@@ -137,25 +176,27 @@
 		\item Si el estado es 0, gira a la izquierda.  
 		\item Si el estado es 1, gira a la izquierda.  
 		\item Si el estado es 2, gira a la derecha.  
+	
+	Sin olvidar que del estado 0 pasa al 1, del 1 al 2 y del 2 al 0 nuevamente.
 	\end{itemize}
 	
 	\subsection{Clasificación: Agente y Autómata Celular}
 	
 	La hormiga de Langton puede ser catalogada tanto como un agente como un autómata celular:  
 	\begin{itemize}
-		\item \textbf{Agente}: Es una entidad autónoma que toma decisiones individuales basadas en ciertas reglas, lo que coincide con el comportamiento definido anteriormente de la hormiga.  
-		\item \textbf{Autómata celular}: Un sistema dinámico compuesto por celdas que cambian de estado según una vecindad y una función de transición. Aunque la definición no parece encajar perfectamente, el comportamiento de la hormiga puede replicarse definiendo estados y reglas específicas.  
+		\item \textbf{Agente}: Es una entidad autónoma que toma decisiones individuales basadas en ciertas reglas \cite{bib:lan3}, lo que coincide con el comportamiento definido anteriormente de la hormiga.  
+		\item \textbf{Autómata celular}: Un sistema dinámico compuesto por celdas que cambian de estado según una vecindad y una función de transición \cite{bib:lan4}. Aunque la definición no parece encajar perfectamente, el comportamiento de la hormiga puede replicarse definiendo estados y reglas específicas.  
 	\end{itemize}
 	
-	Por ejemplo, para la regla \textbf{RL}, el autómata celular equivalente se define de la siguiente manera: 
+	Por ejemplo, para una sola hormiga \textbf{RL}, el autómata celular equivalente se define de la siguiente manera: 
 	\begin{itemize}
 		\item \textbf{Dimensión}: Plano bidimensional.  
-		\item \textbf{Estados}: Se extienden los estados originales $\{0, 1\}$ para incluir información sobre la dirección de la hormiga: $\{0, 0_U, 0_D, 0_L, 0_R, 1, 1_U, 1_D, 1_L, 1_R\}$, donde el subíndice indica la dirección.  
+		\item \textbf{Estados}: Se agregan 4 estados por cada uno de los estados originales $\{0, 1\}$, para incluir información sobre la dirección de la hormiga: $\{0, 0_U, 0_D, 0_L, 0_R, 1, 1_U, 1_D, 1_L, 1_R\}$, donde el subíndice indica la dirección.  
 		\item \textbf{Vecindad}: Vecindad de Neumann (los cuatro vecinos ortogonales más cercanos y la celda central).  
 		\item \textbf{Función de transición}: Las reglas incluyen:  
 		\begin{itemize}
 			\item Si una celda contiene una hormiga, su estado cambia al estado sin hormiga:  
-			\[ c(t) = x_y \rightarrow c(t+1) = x \]  
+			\[ c(t) = x_y \rightarrow c(t+1) = x, \: \forall x \in \text{Estados iniciales} \]  
 			\item Si una celda vecina contiene una hormiga mirando hacia ella, adquiere el estado correspondiente con la nueva dirección. Por ejemplo, a continuación se define el comportamiento de una celda si su vecina izquierda tiene una hormiga mirando a la derecha:  
 			\[
 			c_{(-1, 0)}(t) = x_R, c(t) = 0 \rightarrow c(t+1) = 1_D, \: \forall x \in \text{Estados iniciales}
@@ -166,8 +207,6 @@
 		\end{itemize}
 	\end{itemize}
 	
-	Este autómata celular esta diseñado unicamente para una hormiga.
-	
 \section{Objetivo de la Práctica}
 
 El objetivo de esta práctica es estudiar los siguientes aspectos:  
@@ -177,14 +216,14 @@ El objetivo de esta práctica es estudiar los siguientes aspectos:
 	\item La formación, el comportamiento y la interacción entre colonias independientes.  
 \end{itemize}
 
-Durante las pruebas, se analizarán y graficarán las densidades de los estados de las celdas y la expansión desde el punto inicial. Las simulaciones se llevaron a cabo utilizando un software desarrollado específicamente para esta práctica, detallado en la sección de metodología.
+Durante las pruebas, se analizarán y graficarán las densidades de los estados de las celdas. Las simulaciones se llevaron a cabo utilizando un software desarrollado específicamente para esta práctica, detallado en la sección de metodología.
 
 \clearpage
 \section{Metodología}
 
 \subsection{Diseño de Software}
 
-El software fue desarrollado en C++ utilizando el proyecto \textit{Graphic Mode}, que implementa interfaces gráficas mediante la librería SFML. Este programa incorpora múltiples elementos esenciales para la práctica, tales como:  
+El software fue desarrollado en C++ utilizando el proyecto \textit{Graphic Mode} \cite{bib:lan5}, que implementa interfaces gráficas mediante la librería SFML. Este programa incorpora múltiples elementos esenciales para la práctica, tales como:  
 \begin{itemize}
 	\item Creación y manipulación de \textit{frames}.
 	\item Implementación de botones interactivos.
@@ -210,19 +249,19 @@ Este sencillo conjunto de reglas produce dos dinámicas características:
 
 En la Figura \ref{img:rl1} se muestra el resultado del movimiento de una hormiga tras completar 10,000 pasos. Posteriormente, en la Figura \ref{img:rl2}, se observa cómo la carretera se desarrolla casi de manera inmediata, permitiendo un crecimiento constante desde ese punto. 
 
-Cada gráfico utiliza colores para representar los diferentes estados, con las casillas negras indicando áreas no visitadas, que no poseen un estado asignado.
+Cada gráfico utiliza colores para representar los diferentes estados, las casillas negras ó blancas son áreas no visitadas, es decir, que no poseen un estado asignado.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{img/rl1.png}
-	\caption{Movimiento inicial de una hormiga bajo la regla RL (10,000 pasos).}
+	\caption{Movimiento inicial de una hormiga bajo la regla \textbf{RL} (10,000 pasos).}
 	\label{img:rl1}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{img/rl2.png}
-	\caption{Construcción de la carretera por una hormiga bajo la regla RL.}
+	\caption{Construcción de la carretera por una hormiga bajo la regla \textbf{RL}.}
 	\label{img:rl2}
 \end{figure}
 
@@ -244,7 +283,7 @@ Como se mencionó previamente, las hormigas de Langton pueden operar con diversa
 	
 	\begin{minipage}{0.9\textwidth}
 		\centering
-		\small La regla LLR crea carreteras de forma casi inmediata. Incluso tiene la capacidad de añadir carriles en carreteras existentes. Las perturbaciones en la gráfica representan colisiones con otros elementos en el espacio, aunque, generalmente, se necesitan pocas generaciones para que la hormiga recupere su trayectoria.
+		\small La regla \textbf{LLR} crea carreteras de forma casi inmediata. Incluso tiene la capacidad de añadir carriles en carreteras existentes. Las perturbaciones en la gráfica representan colisiones con otros elementos en el espacio, aunque, generalmente, se necesitan pocas generaciones para que la hormiga recupere su trayectoria.
 	\end{minipage}
 	\vspace{0.5cm}
 	
@@ -262,12 +301,12 @@ Como se mencionó previamente, las hormigas de Langton pueden operar con diversa
 	
 	\begin{minipage}{0.9\textwidth}
 		\centering
-		\small La regla RLLR se desarrolla en forma cuadrada y no crece hasta que la estructura interna ha cambiado casi por completo. Además, a diferencia de las reglas anteriores, las densidades de estado en esta regla presentan cambios con mayor frecuencia.
+		\small La regla \textbf{RLLR} se desarrolla en forma cuadrada y no crece hasta que la estructura interna ha cambiado casi por completo. Además, a diferencia de las reglas anteriores, las densidades de estado en esta regla presentan cambios con mayor frecuencia.
 	\end{minipage}
 	\vspace{0.5cm}
 	
 	% Tercera fila: Regla RRRLLL
-	\begin{minipage}{0.45\textwidth}
+	\begin{minipage}{0.6\textwidth}
 		\centering
 		\includegraphics[width=1.2\textwidth]{img/rrrlll1.png}
 	\end{minipage}%
@@ -275,7 +314,7 @@ Como se mencionó previamente, las hormigas de Langton pueden operar con diversa
 	
 	\begin{minipage}{0.9\textwidth}
 		\centering
-		\small La regla RRRLLL genera una carretera que tarda el doble de tiempo en formarse en comparación con la regla LLR.
+		\small La regla \textbf{RRRLLL} genera una carretera que tarda el doble de tiempo en formarse en comparación con la regla \textbf{LLR}.
 	\end{minipage}
 	
 	\caption{Comparación de comportamientos según diferentes reglas.}
@@ -314,7 +353,7 @@ El comportamiento pseudoaleatorio característico de la hormiga de Langton se in
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\textwidth]{img/mul1.png}
-	\caption{Interacción de múltiples hormigas con regla RL.}
+	\caption{Interacción de múltiples hormigas con regla \textbf{RL}.}
 	\label{img:mul1}
 \end{figure}
 
@@ -324,7 +363,7 @@ El comportamiento pseudoaleatorio característico de la hormiga de Langton se in
 	\begin{figure}[h]
 		\centering
 		\includegraphics[width=\textwidth]{img/2rl.png}
-		\caption{Construcción de una carretera por dos hormigas con regla RL.}
+		\caption{Construcción de una carretera por dos hormigas con regla \textbf{RL}.}
 		\label{img:2rl}
 	\end{figure}
 	
@@ -380,16 +419,16 @@ El comportamiento pseudoaleatorio característico de la hormiga de Langton se in
 	
 	\begin{minipage}{0.9\textwidth}
 		\centering
-		\small Cuatro hormigas RL ubicadas en las posiciones iniciales $A_1(0, 0, U)$, $A_2(3, 0, U)$, $A_3(0, 3, D)$ y $A_4(3, 3, D)$ generan un ciclo con un periodo de 220 generaciones.  
+		\small Cuatro hormigas ubicadas en las posiciones iniciales $A_1(0, 0, U)$, $A_2(+3, 0, U)$, $A_3(0, +3, D)$ y $A_4(+3, +3, D)$ generan un ciclo con un periodo de 220 generaciones.  
 	\end{minipage}
 	
-	\caption{Patrones periódicos generados por múltiples hormigas con regla RL.}
+	\caption{Patrones periódicos generados por múltiples hormigas con regla \textbf{RL}.}
 	\label{fig:pat}
 \end{figure}
 
 \clearpage
-\subsubsection{Multiples reglas}
-Como ya se menciono, multiples hormigas pueden coexistir en el mismo espacio. En la figura \ref{fig:rules_mul} se muestran varias de estas configuraciones:
+\subsubsection{Múltiples reglas}
+Como ya se menciono, múltiples hormigas pueden coexistir en el mismo espacio. En la figura \ref{fig:rules_mul} se muestran varias de estas configuraciones.
 \begin{figure}[h!]
 	\centering
 	% Primera fila
@@ -414,19 +453,952 @@ Como ya se menciono, multiples hormigas pueden coexistir en el mismo espacio. En
 	\end{minipage}
 	\vspace{0.3cm}
 
-	\caption{Patrones periódicos generados por múltiples hormigas con regla RL.}
+	\caption{Patrones generados por múltiples hormigas con múltiples reglas.}
 	\label{fig:rules_mul}
 \end{figure}
 
 \clearpage
 \section{Hormigueros}
 
+Al igual que en la naturaleza, un hormiguero se compone de un conjunto de hormigas que comparten un pensamiento colectivo. Este ``pensamiento'' está representado por la regla que define el comportamiento del grupo de hormigas.
+
+Dado el tamaño requerido de la población unicamente se experimentara con hormigas \textbf{RL}.
+
+A continuación se presenta la evolución de cuatro hormigueros con la misma regla, cada uno con una población de 100 hormigas dispersas en un radio de 50 unidades  (Distancia de Neumann) mirando en diferentes direcciones. Las claves de los hormigueros serán las siguientes:
+
+\begin{itemize}[noitemsep]
+	\item \textbf{A}: Superior izquierdo
+	\item \textbf{B}: Superior derecho
+	\item \textbf{C}: inferior izquierdo
+	\item \textbf{D}: Inferior derecho
+\end{itemize}
+
+En la figura  \ref{img:c1} se puede observar la generación de un cuadrado azul por parte del hormiguero \textbf{D}, lo que significa que se generaron dos hormigas como en la figura \ref{fig:pat}, es decir, una a un lado de otra con la misma dirección inicial. Este fenómeno dio una ventaja a la densidad de estados azules, representado en la grafica.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{img/c5.png}
+	\caption{Evolución de hormigueros tras 500 generaciones.}
+	\label{img:c1}
+\end{figure}
+
+Después de haber transcurrido 1,000 generaciones, las colonias han empezado a construir carreteras como se observa en la figura \ref{img:c2}. 
+
+\begin{itemize}
+	\item El hormiguero \textbf{A} construye una carretera en dirección al hormiguero \textbf{B}.
+	\item El hormiguero \textbf{C} construye dos carreteras en dirección al hormiguero \textbf{A} y \textbf{D}.
+\end{itemize}
+
+Ademas, aunque parte del área del rombo azul construido por \textbf{D} haya sido alterada, sigue sin representar un cambio significante en la diferencia de densidades.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{img/c10.png}
+	\caption{Evolución de hormigueros tras 1000 generaciones.}
+	\label{img:c2}
+\end{figure}
+
+En la figura \ref{img:c3} se observa la población después de 1,500 generaciones. Todas las carreteras  que se se estaban construyendo se vieron interrumpidas por otra hormiga. Esto debido a que las carreteras no solo permiten expandir el área de forma periódica, sino que ademas, permite a otras hormigas viajar a través de ellas de forma mucha mas rápida. 
+
+Se han creado nuevas carreteras, la distancia entre hormigueros va disminuyendo, al igual que los espacios no visitados en cada hormiguero. 
+
+La curva de la grafica muestra también la velocidad de expansión, adquiriendo una forma logarítmica, lo que implica  que entre mas tiempo pase, mas lento sera el dominio del área no visitada. Esto también se aprecia visualmente pues la generación 500 ha tenido mayor crecimiento en comparación con el resto.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{img/c15.png}
+	\caption{Evolución de hormigueros tras 1,500 generaciones.}
+	\label{img:c3}
+\end{figure}
+
+En la figura \ref{img:c4} aparece  un ligero incremento en la expansión, ya que todos los hormigueros empezaron a construir carreteras. Se esta dando la primera conexión entre los hormigueros \textbf{C} con \textbf{D}, \textbf{A} con \textbf{B} y \textbf{A} con \textbf{C}. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{img/c20.png}
+	\caption{Evolución de hormigueros tras 2,000 generaciones.}
+	\label{img:c4}
+\end{figure}
+
+Los hormigueros, en la figura \ref{img:c5}, están próximos a conectarse mediante carreteras. Parecieran reacios a unirse, pues delimitaron las carreteras por los bordes de otros hormigueros. Un fenómeno completamente aleatorio.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{img/c25.png}
+	\caption{Evolución de hormigueros tras 2,500 generaciones.}
+	\label{img:c5}
+\end{figure}
+
+Finalmente, en la figura \ref{img:c6} los hormigueros se han unidos. No están completamente conexos, pero sin ningún problema, una hormiga de cualquier hormiguero puede visitar todos los hormigueros mediante las carreteras. Pareciera tener un crecimiento constante desde las ultimas generaciones, pero esto se debe a que, al crear nuevos caminos, las hormigas se mueven con mayor facilidad, pudiendo expandir territorio en otros hormigueros.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{img/c30.png}
+	\caption{Evolución de hormigueros tras 3,000 generaciones.}
+	\label{img:c6}
+\end{figure}
+
+
+En la tabla \ref{tab:1} se compara la expansión de los hormigueros, y como estos disminuyen exponencialmente.
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|c|c|c|}
+		\hline
+	 	\textbf{Generación } & \textbf{Espacio} &  \textbf{Crecimiento} \\ \hline
+		500 & 16,550 & 16,550  \\ \hline
+		1,000& 21,923 & 5,373 \\ \hline
+		1,500& 24,948 & 3,025 \\ \hline
+		2,000& 27,689 & 2,741 \\ \hline
+		2,500& 29,796  & 2,103 \\ \hline
+		3,000& 32,360 & 2,564\\ \hline
+	\end{tabular}
+	\caption{Expansión de hormigueros}
+	\label{tab:1}
+\end{table}
+
+\clearpage
+\section{Conclusión}
+
+Cada hormiga, con cada paso que da, es capaz de generar caos en su entorno. Sin embargo, la interacción entre múltiples hormigas puede dar lugar a comportamientos colectivos organizados, como patrones cíclicos o expansivos. Este fenómeno sugiere que pocas hormigas son capaces de trabajar de manera independiente, como las que construyen carreteras, mientras que la mayoría tiende a sincronizarse, como si una hormiga reina dictara las instrucciones o ``reglas'' para el grupo.
+
+Es fascinante observar cómo, a partir de un universo tan simple basado en dos giros, pueden emerger configuraciones altamente complejas. 
+
+Esta práctica representa apenas una exploración superficial del comportamiento de la hormiga de Langton, considerando únicamente sistemas bidimensionales con múltiples reglas en un mismo espacio. Sin embargo, se abre un vasto horizonte de posibilidades si se introducen nuevos elementos, como un sistema tridimensional o espacios no ortogonales, como hexagonales o triangulares. Esto daría lugar a una gran variedad de combinaciones, patrones, comportamientos y, posiblemente, aplicaciones.
+
+Como trabajo futuro queda la interacción cíclica de hormigas con diferentes reglas y la construcción de patrones en escalas mayores, tanto de espacio como de tiempo. Nuevamente una hormiga demuestra que los cambios pequeños dan grandes resultados.
 
 	\clearpage
 	\addcontentsline{toc}{section}{Referencias}
 	\begin{thebibliography}{99}
-		\bibitem{}
+	\bibitem{bib:lan1}
+	Contributors to Wikimedia projects. ``Langton's ant - wikipedia''. Wikipedia, the free encyclopedia. Accedido el 26 de diciembre de 2024. [En línea]. Disponible: \url{https://en.wikipedia.org/wiki/Langton's_ant}
+
+	\bibitem{bib:lan2}
+	N. Freire. ``La hormiga de Langton, de la simplicidad al caos''. National Geographic España. Accedido el 25 de diciembre de 2024. [En línea]. Disponible: \url{https://www.nationalgeographic.com.es/ciencia/hormiga-langton-simplicidad-caos_22530}
+		
+	\bibitem{bib:lan3}
+	Colaboradores de los proyectos Wikimedia. ``Agente (software) - Wikipedia, la enciclopedia libre''. Wikipedia, la enciclopedia libre. Accedido el 25 de diciembre de 2024. [En línea]. Disponible: \url{https://es.wikipedia.org/wiki/Agente_(software)}
+		
+	\bibitem{bib:lan4}
+	Wolfram Research, Inc. ``Cellular Automaton -- from Wolfram MathWorld''. Wolfram MathWorld: The Web's Most Extensive Mathematics Resource. Accedido el 25 de diciembre de 2024. [En línea]. Disponible: \url{https://mathworld.wolfram.com/CellularAutomaton.html}
+		
+	\bibitem{bib:lan5}
+	J. Angeles. ``GitHub - JesseAngeles/Graphic-Mode: Graphic mode using SFML''. GitHub. Accedido el 4 de enero de 2025. [En línea]. Disponible: https://github.com/JesseAngeles/Graphic-Mode
 		
 	\end{thebibliography}
 	
+\clearpage
+\section{Código}
+
+\subsection{Lógica}
+
+\subsubsection{Estructuras}
+
+\begin{lstlisting}[caption={Cell}, label={lst:cppexample}]
+struct Cell {
+	int state;
+	std::optional<std::shared_ptr<Ant>> ant;
+	Cell(int state) : state(state), ant(std::nullopt) {}
+	Cell(int state, std::shared_ptr<Ant>) : state(state), ant(ant) {} 
+};
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Direction}, label={lst:cppexample}]
+enum class Direction {
+	UP,
+	LEFT,
+	RIGHT,
+	DOWN 
+};
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Position}, label={lst:cppexample}]
+struct Position2D {
+	int x;
+	int y;
+	Position2D() = default;
+	Position2D(int x, int y) : x(x), y(y) {}
+	bool operator==(const Position2D &other) const { return x == other.x && y == other.y; }
+	bool operator<(const Position2D &other) const {
+		if (x < other.x)
+		return true;
+		if (other.x < x)
+		return false;
+		
+		if (y < other.y)
+		return true;
+		return false;
+	}
+};
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Rule}, label={lst:cppexample}]
+enum class Rule {
+	LEFT,
+	RIGHT
+};
+
+inline std::vector<Rule> stringToRules(std::string &rule) {
+	std::vector<Rule> rules;
+	for (const char c : rule)
+	if (c == 'L')
+	rules.push_back(Rule::LEFT);
+	else if (c == 'R')
+	rules.push_back(Rule::RIGHT);
+	
+	return rules;
+}
+\end{lstlisting}
+
+\subsubsection{Hormiga}
+
+\begin{lstlisting}[caption={Ant.hpp}, label={lst:cppexample}]
+class Ant {
+	private:
+	// Attributes
+	Position2D pos;
+	Direction direction;
+	
+	Position2D space;
+	
+	int colony;
+	
+	// Rules
+	std::vector<Rule> rules;
+	
+	// Functions
+	
+	public:
+	// Constructor
+	Ant(Position2D pos, Position2D space, Direction direction, std::vector<Rule> rules, int colony = 0);
+	
+	// Functions
+	void rotate(const int &state);
+	Position2D getNextMove() const;
+	
+	// Overloading
+	bool operator<(const Ant &other) const;
+	
+	// Getters
+	Position2D getPos() const { return pos; }
+	Direction getDirection() const { return direction; }
+	std::vector<Rule> getRules() const { return rules; }
+	
+	// Setters
+	void setPos(Position2D &pos) { this->pos = pos; }
+	void setDirection(Direction &direction) { this->direction = direction; }
+	void setRules(std::vector<Rule> &rules) { this->rules = rules; }
+	void setSpace(Position2D &space);
+	
+	// Display
+	void display();
+};
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Ant.cpp}, label={lst:cppexample}]
+// Constructor
+Ant::Ant(Position2D pos, Position2D space, Direction direction, std::vector<Rule> rules, int colony)
+: pos(pos), space(space), direction(direction), rules(rules), colony(0) {}
+
+// Public functions
+void Ant::rotate(const int &state) {
+	if (state >= rules.size())
+	return;
+	
+	Rule rule_to_apply = rules[state];
+	
+	if (rule_to_apply != Rule::LEFT) {
+		if (direction == Direction::LEFT)
+		direction = Direction::DOWN;
+		else if (direction == Direction::UP)
+		direction = Direction::LEFT;
+		else if (direction == Direction::RIGHT)
+		direction = Direction::UP;
+		else if (direction == Direction::DOWN)
+		direction = Direction::RIGHT;
+	} else if (rule_to_apply != Rule::RIGHT) {
+		if (direction == Direction::LEFT)
+		direction = Direction::UP;
+		else if (direction == Direction::UP)
+		direction = Direction::RIGHT;
+		else if (direction == Direction::RIGHT)
+		direction = Direction::DOWN;
+		else if (direction == Direction::DOWN)
+		direction = Direction::LEFT;
+	}
+}
+
+Position2D Ant::getNextMove() const {
+	Position2D pos = this->pos;
+	
+	if (direction == Direction::UP)
+	pos.x--;
+	else if (direction == Direction::RIGHT)
+	pos.y++;
+	else if (direction == Direction::DOWN)
+	pos.x++;
+	else if (direction == Direction::LEFT)
+	pos.y--;
+	
+	pos.x = (pos.x + space.x) % space.x;
+	pos.y = (pos.y + space.y) % space.y;
+	
+	return pos;
+}
+
+// Overloading
+bool Ant::operator<(const Ant &other) const {
+	if (pos.x < other.pos.x)
+	return true;
+	if (other.pos.x < pos.x)
+	return false;
+	
+	if (pos.y < other.pos.y)
+	return true;
+	
+	return false;
+}
+
+// Setters
+void Ant::setSpace(Position2D &space) {
+	this->space = space;
+	pos.x %= space.x;
+	pos.y %= space.y;
+}
+
+// Display
+void Ant::display() {
+	std::cout << "\n(" << pos.x << "," << pos.y << ") -> ";
+	if (direction == Direction::DOWN)
+	std::cout << "down";
+	else if (direction == Direction::LEFT)
+	std::cout << "left";
+	else if (direction == Direction::UP)
+	std::cout << "up";
+	else if (direction == Direction::RIGHT)
+	std::cout << "right";
+	
+	std::cout << ": ";
+	
+	for (const Rule &rule : rules)
+	if (rule == Rule::LEFT)
+	std::cout << "L";
+	else if (rule == Rule::RIGHT)
+	std::cout << "R";
+}
+\end{lstlisting}
+
+\subsubsection{Espacio}
+
+\begin{lstlisting}[caption={Space.hpp}, label={lst:cppexample}]
+class Space {
+	private:
+	// Attributes
+	std::vector<std::vector<Cell>> space;
+	std::set<std::shared_ptr<Ant>> ants;
+	
+	int states;
+	
+	Randomizer randomizer;
+	
+	// Functions
+	
+	public:
+	// Constructor
+	Space(int width, int height, int states, std::set<std::shared_ptr<Ant>> ants);
+	
+	// Functions
+	std::set<Position2D> move();
+	void switchCell(Position2D pos) { space[pos.x][pos.y].state = (space[pos.x][pos.y].state + 1) % states; }
+	bool insertAnt(std::shared_ptr<Ant> &ant);
+	void removeAnt(Position2D pos);
+	void clear();
+	
+	int insertColony(Position2D center, float radius, int population, std::vector<Rule> rules, int colony);
+	
+	// Getters
+	std::vector<std::vector<Cell>> getSpace() const { return space; }
+	std::set<std::shared_ptr<Ant>> getAnts() const { return ants; }
+	int getStates() const { return states; }
+	
+	// Setters
+	void setSpace(std::vector<std::vector<Cell>> &space);
+	void setAnts(std::set<std::shared_ptr<Ant>> &ants) { this->ants = ants; }
+	void setSpace(int &states) { this->states = states; }
+	
+	// Display
+	void displaySpace();
+	void displayAnts();
+	void display();
+};
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Space.cpp}, label={lst:cppexample}]
+// Constructor
+Space::Space(int width, int height, int states, std::set<std::shared_ptr<Ant>> ants)
+: space(width, std::vector<Cell>(height, Cell(-1))), states(states), ants(ants), randomizer() {
+	for (const std::shared_ptr<Ant> &ant : ants)
+	this->space[ant->getPos().x][ant->getPos().y].ant = ant;
+}
+
+// Private functions
+
+// Public functions
+std::set<Position2D> Space::move() {
+	// Rotar todas las hormigas
+	for (const std::shared_ptr<Ant> &ant : ants) {
+		Position2D pos = ant->getPos();
+		if (space[pos.x][pos.y].state == -1)
+		ant->rotate(0);
+		else
+		ant->rotate(space[pos.x][pos.y].state);
+	}
+	
+	// Obtener todas las casillas que seran ocupadas
+	std::map<Position2D, std::vector<std::shared_ptr<Ant>>> taken_cells;
+	
+	for (const std::shared_ptr<Ant> &ant : ants) {
+		Position2D next_move = ant->getNextMove();
+		
+		auto it = taken_cells.find(next_move);
+		if (it != taken_cells.end())
+		it->second.push_back(ant);
+		else
+		taken_cells[next_move] = {ant};
+	}
+	
+	// Buscar aquellas casillas que puede ser tomada por dos o mas, y seleccionar una al azar
+	std::vector<std::shared_ptr<Ant>> movable_ants;
+	for (std::pair<Position2D, std::vector<std::shared_ptr<Ant>>> cell : taken_cells)
+	if (cell.second.size() == 1)
+	movable_ants.push_back(cell.second[0]);
+	else
+	movable_ants.push_back(cell.second[std::round(randomizer.generate(0, cell.second.size() - 1))]);
+	
+	// Eliminar referencia de ants
+	for (const std::shared_ptr<Ant> &ant : movable_ants)
+	space[ant->getPos().x][ant->getPos().y].ant = std::nullopt;
+	
+	// Mover movable_ants
+	std::set<Position2D> positions_to_update;
+	
+	for (const std::shared_ptr<Ant> &ant : ants) {
+		Position2D pos = ant->getPos();
+		Position2D new_pos = ant->getNextMove();
+		ant->setPos(new_pos);
+		
+		
+		if (space[pos.x][pos.y].state == -1)
+		space[pos.x][pos.y].state = (space[pos.x][pos.y].state + 2) % states;
+		else
+		space[pos.x][pos.y].state = (space[pos.x][pos.y].state + 1) % states;
+		space[new_pos.x][new_pos.y].ant = ant;
+		
+		positions_to_update.insert(pos);
+		positions_to_update.insert(new_pos);
+	}
+	
+	return positions_to_update;
+}
+
+bool Space::insertAnt(std::shared_ptr<Ant> &ant) {
+	Position2D pos = ant->getPos();
+	if (!space[pos.x][pos.y].ant.has_value()) {
+		ants.insert(ant);
+		space[pos.x][pos.y].ant = ant;
+		
+		return true;
+	}
+	return false;
+}
+
+void Space::removeAnt(Position2D pos) {
+	if (space[pos.x][pos.y].ant.has_value()) {
+		std::shared_ptr<Ant> ant = space[pos.x][pos.y].ant.value();
+		space[pos.x][pos.y].ant = std::nullopt;
+		
+		ants.erase(ant);
+	}
+}
+
+void Space::clear() {
+	for (std::vector<Cell> &line : space)
+	for (Cell &cell : line) {
+		cell.ant = std::nullopt;
+		cell.state = -1;
+	}
+	
+	ants.clear();
+}
+
+int Space::insertColony(Position2D center, float radius, int population, std::vector<Rule> rules, int colony) {
+	// Create N ants
+	int i = 0, j = 0;
+	int total_count = std::sqrt(8) * std::pow(radius, 2);
+	Position2D current_space(space.size(), space[0].size());
+	
+	while (i < population && j++ < total_count) {
+		int x_pos = randomizer.generate(center.x + radius, center.x - radius);
+		int y_pos = randomizer.generate(center.y + radius, center.y - radius);
+		int direction = randomizer.generate(0, 4);
+		
+		Direction new_direction;
+		switch (direction) {
+			case 0:
+			new_direction = Direction::LEFT;
+			break;
+			case 1:
+			new_direction = Direction::UP;
+			break;
+			case 2:
+			new_direction = Direction::DOWN;
+			break;
+			case 3:
+			new_direction = Direction::RIGHT;
+			break;
+		}
+		
+		std::shared_ptr<Ant> new_ant = std::make_shared<Ant>(Position2D(x_pos, y_pos), current_space, new_direction, rules, colony);
+		
+		if (insertAnt(new_ant))
+		i++;
+	}
+	
+	return i;
+}
+
+// Setters
+void Space::setSpace(std::vector<std::vector<Cell>> &space) {
+	this->space = space;
+	Position2D new_space(space.size(), space[0].size());
+	for (const std::shared_ptr<Ant> &ant : ants)
+	ant->setSpace(new_space);
+}
+}
+\end{lstlisting}
+
+\subsection{Interfaz grafica}
+
+\subsubsection{GUI}
+
+\begin{lstlisting}[caption={GUI.hpp}, label={lst:cppexample}]
+class GUI : public MainWindow {
+	private:
+	// Attributes
+	int direction = 0;
+	int generation_count = 0;
+	int current_colonies = 0;
+	int rule_size;
+	int size = 1;
+	int radio = 1;
+	bool is_running = false;
+	bool is_colony = false;
+	
+	std::string current_rule;
+	
+	// GUI Components
+	sf::Font font;
+	sf::Text default_text;
+	sf::Text generation_count_text;
+	sf::Text max_generation_text;
+	sf::Text radio_text;
+	sf::Text size_text;
+	std::vector<Color> colors;
+	
+	Frame frame;
+	std::shared_ptr<MainGraphic> graphic;
+	std::shared_ptr<MainGrid> grid;
+	
+	std::shared_ptr<TextBoxRule> tb_rule;
+	std::shared_ptr<TextBoxRadio> tb_radio;
+	std::shared_ptr<TextBoxSize> tb_size;
+	
+	std::shared_ptr<ButtonStart> btn_start;
+	std::shared_ptr<ButtonStep> btn_step;
+	std::shared_ptr<ButtonReset> btn_reset;
+	std::shared_ptr<ButtonState> btn_state;
+	std::shared_ptr<ButtonAnt> btn_ant;
+	std::shared_ptr<ButtonColony> btn_colony;
+	
+	void initDefaultText();
+	void render() override;
+	
+	public:
+	// Constructor
+	GUI(const std::shared_ptr<Space> &);
+	void run() override;
+	
+	// Logic
+	std::shared_ptr<Space> space;
+	
+	void move();
+	void clear();
+	void initColors();
+	Color generateRandomColor();
+	
+	// Test functions
+	void testButton() { std::cout << "Test\n"; };
+	void testTextBox(std::string text) { std::cout << "Test: " << text << std::endl; }
+	void testGrid(int x, int y) { std::cout << "Test: (" << x << "," << y << ")\n"; }
+	
+	// Getters
+	int getDirection() const { return direction; }
+	int getGenerationCount() const { return generation_count; }
+	int getRuleSize() const { return rule_size; }
+	bool isRunning() const { return is_running; }
+	bool isColony() const { return is_colony; }
+	std::string getRule() const { return current_rule; }
+	int getSize() const { return size; }
+	int getRadio() const { return radio; }
+	int getCurrentColonies() const {return current_colonies; }
+	
+	// Setters
+	void setDirection(int direction) { this->direction = direction; }
+	void resetGenerationCount() { generation_count = 0; }
+	void setRuleSize(int rule_size) { this->rule_size = rule_size; }
+	void switchRunning() { is_running = !is_running; }
+	void switchColony() { is_colony = !is_colony; }
+	void setRule(std::string current_rule) { this->current_rule = current_rule; }
+	void setSize(int size) { this->size = size; }
+	void setRadio(int radio) { this->radio = radio; }
+	void setMaxGenerationText(int x) { max_generation_text.setString("Max: " + std::to_string(x)); }
+	void setGenerationCountText() { generation_count_text.setString("Generation: " + std::to_string(generation_count)); }
+	void setButtonAntText(const std::string &content) { btn_ant->setText(content); }
+	void setCurrentColonies(int current_colonies) {this->current_colonies = current_colonies; }
+};
+\end{lstlisting}
+
+\begin{lstlisting}[caption={GUI.cpp}, label={lst:cppexample}]
+// Constructor
+GUI::GUI(const std::shared_ptr<Space> &space)
+: space(space),
+MainWindow(1920, 1080, "Langton's Ant"),
+frame(Vector2f(0, 0), Vector2f(1920, 1080), Color(245, 245, 245)),
+graphic(std::make_shared<MainGraphic>(this)),
+grid(std::make_shared<MainGrid>(this, space->getSpace().size(), space->getSpace()[0].size())),
+tb_rule(std::make_shared<TextBoxRule>(this, default_text)),
+tb_radio(std::make_shared<TextBoxRadio>(this, default_text)),
+tb_size(std::make_shared<TextBoxSize>(this, default_text)),
+btn_start(std::make_shared<ButtonStart>(this, default_text)),
+btn_step(std::make_shared<ButtonStep>(this, default_text)),
+btn_reset(std::make_shared<ButtonReset>(this, default_text)),
+btn_state(std::make_shared<ButtonState>(this, default_text)),
+btn_ant(std::make_shared<ButtonAnt>(this, default_text)),
+btn_colony(std::make_shared<ButtonColony>(this, default_text)) {
+	initDefaultText();
+	rule_size = space->getStates();
+	
+	tb_rule->setText(default_text);
+	tb_radio->setText(default_text);
+	tb_size->setText(default_text);
+	
+	btn_start->setText(default_text);
+	btn_start->setText("Start");
+	
+	btn_step->setText(default_text);
+	btn_step->setText("Step");
+	
+	btn_reset->setText(default_text);
+	btn_reset->setText("Reset");
+	
+	btn_state->setText(default_text);
+	btn_state->setText("Set state");
+	
+	btn_ant->setText(default_text);
+	btn_ant->setText("Add ant");
+	
+	btn_colony->setText(default_text);
+	btn_colony->setText("Insert colony");
+	
+	frame.addChild(graphic);
+	frame.addChild(grid);
+	frame.addChild(tb_rule);
+	frame.addChild(btn_start);
+	frame.addChild(btn_step);
+	frame.addChild(btn_reset);
+	frame.addChild(btn_ant);
+	frame.addChild(btn_state);
+	frame.addChild(btn_colony);
+	frame.addChild(tb_radio);
+	frame.addChild(tb_size);
+	
+	addFrame(frame);
+}
+
+// Private functions
+void GUI::initDefaultText() {
+	if (!font.loadFromFile("./resources/fonts/Roboto-Medium.ttf")) {
+		throw std::runtime_error("No se pudo cargar la fuente.");
+	}
+	
+	default_text.setFont(font);
+	default_text.setFillColor(Color::Black);
+	default_text.setCharacterSize(20);
+	default_text.setString("Default Text");
+	
+	max_generation_text = default_text;
+	max_generation_text.setPosition(1275, 7);
+	max_generation_text.setString("Max: 0");
+	
+	generation_count_text = default_text;
+	generation_count_text.setPosition(1275, 617);
+	generation_count_text.setString("Generation: 0");
+	
+	radio_text = default_text;
+	radio_text.setPosition(30, 440);
+	radio_text.setString("Radio:");
+	
+	size_text = default_text;
+	size_text.setPosition(30, 500);
+	size_text.setString("Size:");
+}
+
+void GUI::render() {
+	window.clear(background_color);
+	
+	// Render frames
+	for (const std::shared_ptr<Frame> &frame : frames)
+	window.draw(*frame);
+	
+	window.draw(max_generation_text);
+	window.draw(generation_count_text);
+	window.draw(radio_text);
+	window.draw(size_text);    
+	
+	window.display();
+}
+
+// Public functions
+void GUI::run() {
+	Clock clock;
+	float elapsed_time = 0.0f;
+	
+	while (window.isOpen()) {
+		float delta_time = clock.restart().asSeconds();
+		if (is_running) {
+			elapsed_time += delta_time;
+			if (elapsed_time >= 0.0f && generation_count <= 10000) {
+				move();
+				elapsed_time = 0.0f; // Reinicia el tiempo acumulado
+			}
+		}
+		
+		handleEvent();
+		render();
+	}
+}
+
+void GUI::move() {
+	
+	generation_count++;
+	setGenerationCountText();
+	
+	std::set<Position2D>positions = space->move();
+	for (const Position2D &pos : positions)
+	grid->setGridColor(pos.x, pos.y, colors[space->getSpace()[pos.x][pos.y].state]);
+	
+	graphic->updateFunction();
+}
+
+void GUI::clear() {
+	if (isRunning())
+	switchRunning();
+	
+	btn_start->setText("Start");
+	
+	space->clear();
+	move();
+	resetGenerationCount();
+	
+	graphic->clear();
+}
+
+void GUI::initColors() {
+	colors.clear();
+	
+	std::cout << "Size: " << rule_size << "\n";
+	
+	for (int i = 0; i < rule_size; i++)
+	colors.push_back(generateRandomColor());
+	
+	graphic->setColors(colors);
+}
+
+sf::Color GUI::generateRandomColor() {
+	// Inicializar la semilla aleatoria (solo una vez en el programa)
+	static bool initialized = false;
+	if (!initialized) {
+		srand(static_cast<unsigned>(time(nullptr)));
+		initialized = true;
+	}
+	
+	// Generar valores RGB aleatorios
+	sf::Uint8 red = static_cast<sf::Uint8>(rand() % 256);
+	sf::Uint8 green = static_cast<sf::Uint8>(rand() % 256);
+	sf::Uint8 blue = static_cast<sf::Uint8>(rand() % 256);
+	
+	return sf::Color(red, green, blue);
+}
+\end{lstlisting}
+
+\subsubsection{Grafica}
+
+\begin{lstlisting}[caption={MainGraphic}, label={lst:cppexample}]
+void MainGraphic::updateFunction() {
+	for (int i = 0; i < functions.size(); i += 2) {
+		int count = 0;
+		std::vector<std::vector<Cell>> space = gui->space->getSpace();
+		
+		for (const std::vector<Cell> &line : space)
+		for (const Cell &cell : line) {
+			if (cell.state == i / 2)
+			count++;
+		}
+		
+		if (count > max) {
+			max = count;
+			gui->setMaxGenerationText(max);
+		}
+		
+		int x = gui->getGenerationCount();
+		this->rescale(sf::Vector2f(0, 0), sf::Vector2f(x, max));
+		functions[i]->addPoint(Vector2f(x, count), false);
+		
+		functions[i + 1]->addPoint(Vector2f(x, log2(count)), false);
+	}
+}
+
+void MainGraphic::clear() {
+	std::vector<sf::CircleShape> dots;
+	std::vector<sf::VertexArray> lines;
+	
+	for (const std::shared_ptr<GraphicFunction> &function : functions)
+	function->clear();
+	
+	max = 3;
+}
+\end{lstlisting}
+
+\subsubsection{Funcionamiento de botones}
+
+\begin{lstlisting}[caption={ButtonFunctions}, label={lst:cppexample}]
+void ButtonStart::functionButton() {
+	gui->switchRunning();
+	if (gui->isRunning()) 
+		this->text.setString("Stop");
+	else
+		setText("Start");
+}
+
+void ButtonStep::functionButton() { gui->move(); }
+
+void ButtonReset::functionButton() {
+	gui->clear();
+	
+	gui->initColors();
+}
+
+void ButtonState::functionButton() {
+	std::string rule_string = gui->getRule();
+	std::vector<Rule> rules = stringToRules(rule_string);
+	
+	gui->setRuleSize(rules.size());
+	gui->initColors();
+}
+
+void ButtonAnt::functionButton() {
+	gui->setDirection((gui->getDirection() + 1) % 5);
+	switch (gui->getDirection()) {
+		case 0:
+		this->setText("Add ant");
+		break;
+		case 1:
+		this->text.setString("UP");
+		break;
+		case 2:
+		this->text.setString("RIGHT");
+		break;
+		case 3:
+		this->text.setString("DOWN");
+		break;
+		case 4:
+		this->text.setString("LEFT");
+		break;
+	}
+}
+
+void ButtonColony::functionButton() {
+	gui->switchColony();
+	if (gui->isColony())
+	this->text.setString("Position...");
+	else 
+	this->text.setString("Insert colony");
+}
+
+void TextBoxRule::functionButton(const std::string &input) {
+	int size = input.size();
+	gui->setRule(input);
+	gui->setRuleSize(size);
+	gui->space->setSpace(size);
+	gui->initColors();
+}
+
+void TextBoxRadio::functionButton(const std::string &input) { gui->setRadio(std::stoi(input)); }
+
+void TextBoxSize::functionButton(const std::string &input) { gui->setSize(std::stoi(input)); }
+
+void MainGrid::functionGrid(int x, int y) {
+	// insert colony
+	if(gui->isColony()) {
+		std::string rule_string = gui->getRule();
+		std::vector<Rule> rules = stringToRules(rule_string);
+		
+		gui->setCurrentColonies(gui->getCurrentColonies() + 1);
+		gui->space->insertColony(Position2D(x, y), gui->getRadio(), gui->getSize(), rules, gui->getCurrentColonies());
+		gui->move();
+		
+		return;
+	}
+	
+	
+	// Insert one ant
+	int direction_int = gui->getDirection();
+	if (direction_int) 	{
+		Direction direction;
+		switch (direction_int)	{
+			case 1:
+			direction = Direction::UP;
+			break;
+			case 2:
+			direction = Direction::LEFT;
+			break;
+			case 3:
+			direction = Direction::DOWN;
+			break;
+			case 4:
+			direction = Direction::RIGHT;
+			break;
+		}
+		
+		std::string rule_string = gui->getRule();
+		std::vector<Rule> rules = stringToRules(rule_string);
+		
+		std::shared_ptr<Ant> ant = std::make_shared<Ant>(Position2D(x, y), Position2D(this->width, this->height),
+		direction, rules);
+		
+		ant->display();
+		
+		gui->space->insertAnt(ant);
+		
+		this->rectangles[x][y]->setFillColor(Color::Red);
+	} else if (gui->space->getSpace()[x][y].ant.has_value()) {
+		gui->space->removeAnt(Position2D(x, y));
+		this->rectangles[x][y]->setFillColor(Color::Black);
+	}
+}
+\end{lstlisting}
+
+Los elementos gráficos como los botones, frames, campos de texto, cuadriculas, etc. que se extienden del proyecto \textit{Graphic Mode} se omiten, unicamente se añaden aquellos elementos principales que interactúan directamente con la lógica. 
+
 \end{document}

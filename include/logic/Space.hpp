@@ -31,7 +31,7 @@ public:
     Space(int width, int height, int states, std::set<std::shared_ptr<Ant>> ants);
 
     // Functions
-    void move();
+    std::set<Position2D> move();
     void switchCell(Position2D pos) { space[pos.x][pos.y].state = (space[pos.x][pos.y].state + 1) % states; }
     bool insertAnt(std::shared_ptr<Ant> &ant);
     void removeAnt(Position2D pos);

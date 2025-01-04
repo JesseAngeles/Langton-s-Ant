@@ -17,8 +17,8 @@ int main()
 {
     // Metaparametros
     int states = 2;
-    int width = 100;
-    int height = 100;
+    int width = 300;
+    int height = 300;
     
     std::set<std::shared_ptr<Ant>> ants;
 

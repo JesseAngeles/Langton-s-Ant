@@ -8,6 +8,8 @@ GUI::GUI(const std::shared_ptr<Space> &space)
       graphic(std::make_shared<MainGraphic>(this)),
       grid(std::make_shared<MainGrid>(this, space->getSpace().size(), space->getSpace()[0].size())),
       tb_rule(std::make_shared<TextBoxRule>(this, default_text)),
+      tb_radio(std::make_shared<TextBoxRadio>(this, default_text)),
+      tb_size(std::make_shared<TextBoxSize>(this, default_text)),
       btn_start(std::make_shared<ButtonStart>(this, default_text)),
       btn_step(std::make_shared<ButtonStep>(this, default_text)),
       btn_reset(std::make_shared<ButtonReset>(this, default_text)),
@@ -19,7 +21,9 @@ GUI::GUI(const std::shared_ptr<Space> &space)
     rule_size = space->getStates();
 
     tb_rule->setText(default_text);
-
+    tb_radio->setText(default_text);
+    tb_size->setText(default_text);
+    
     btn_start->setText(default_text);
     btn_start->setText("Start");
 
@@ -36,7 +40,7 @@ GUI::GUI(const std::shared_ptr<Space> &space)
     btn_ant->setText("Add ant");
 
     btn_colony->setText(default_text);
-    btn_colony->setText("Add colony");
+    btn_colony->setText("Insert colony");
 
     frame.addChild(graphic);
     frame.addChild(grid);
@@ -47,6 +51,8 @@ GUI::GUI(const std::shared_ptr<Space> &space)
     frame.addChild(btn_ant);
     frame.addChild(btn_state);
     frame.addChild(btn_colony);
+    frame.addChild(tb_radio);
+    frame.addChild(tb_size);
 
     addFrame(frame);
 }
@@ -71,6 +77,14 @@ void GUI::initDefaultText()
     generation_count_text = default_text;
     generation_count_text.setPosition(1275, 617);
     generation_count_text.setString("Generation: 0");
+
+    radio_text = default_text;
+    radio_text.setPosition(30, 440);
+    radio_text.setString("Radio:");
+
+    size_text = default_text;
+    size_text.setPosition(30, 500);
+    size_text.setString("Size:");
 }
 
 void GUI::render()
@@ -83,6 +97,8 @@ void GUI::render()
 
     window.draw(max_generation_text);
     window.draw(generation_count_text);
+    window.draw(radio_text);
+    window.draw(size_text);    
 
     window.display();
 }
@@ -117,20 +133,10 @@ void GUI::move()
     generation_count++;
     setGenerationCountText();
 
-    space->move();
-    std::vector<std::vector<Cell>> new_space = space->getSpace();
-    for (int i = 0; i < new_space.size(); i++)
-        for (int j = 0; j < new_space[i].size(); j++)
-            if (new_space[i][j].ant.has_value())
-                grid->setGridColor(i, j, Color::Red);
-            else
-            {
-                grid->setGridColor(i, j, colors[new_space[i][j].state]);
-                // if (new_space[i][j].state)
-                //     grid->setGridColor(i,j, colors[0]);
-                // else
-                //     grid->setGridColor(i,j, colors[1]);
-            }
+    std::set<Position2D>positions = space->move();
+    for (const Position2D &pos : positions)
+        grid->setGridColor(pos.x, pos.y, colors[space->getSpace()[pos.x][pos.y].state]);
+    
     graphic->updateFunction();
 }
 

@@ -11,7 +11,7 @@ Space::Space(int width, int height, int states, std::set<std::shared_ptr<Ant>> a
 // Private functions
 
 // Public functions
-void Space::move()
+std::set<Position2D> Space::move()
 {
     // Rotar todas las hormigas
     for (const std::shared_ptr<Ant> &ant : ants)
@@ -50,19 +50,26 @@ void Space::move()
         space[ant->getPos().x][ant->getPos().y].ant = std::nullopt;
 
     // Mover movable_ants
-    Position2D pos;
-    for (const std::shared_ptr<Ant> &ant : movable_ants)
+    std::set<Position2D> positions_to_update;
+
+    for (const std::shared_ptr<Ant> &ant : ants)
     {
         Position2D pos = ant->getPos();
         Position2D new_pos = ant->getNextMove();
         ant->setPos(new_pos);
+
 
         if (space[pos.x][pos.y].state == -1)
             space[pos.x][pos.y].state = (space[pos.x][pos.y].state + 2) % states;
         else
             space[pos.x][pos.y].state = (space[pos.x][pos.y].state + 1) % states;
         space[new_pos.x][new_pos.y].ant = ant;
+    
+        positions_to_update.insert(pos);
+        positions_to_update.insert(new_pos);
     }
+
+    return positions_to_update;
 }
 
 bool Space::insertAnt(std::shared_ptr<Ant> &ant)
@@ -109,7 +116,7 @@ int Space::insertColony(Position2D center, float radius, int population, std::ve
     int total_count = std::sqrt(8) * std::pow(radius, 2);
     Position2D current_space(space.size(), space[0].size());
 
-    while (i < population || j++ < total_count)
+    while (i < population && j++ < total_count)
     {
         int x_pos = randomizer.generate(center.x + radius, center.x - radius);
         int y_pos = randomizer.generate(center.y + radius, center.y - radius);
